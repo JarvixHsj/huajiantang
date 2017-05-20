@@ -252,6 +252,7 @@ return [
     ],
 
 
+<<<<<<< HEAD
     // 'tpl_replace_string' => [
     //     '__STATIC__' => ROOT_PATH . 'public/static',
     //     '__PRODUCT_JS__' => ROOT_PATH . 'public/static/product/lib',
@@ -266,4 +267,23 @@ return [
     //     '__PRODUCT_CSS__' => ROOT_PATH . 'public/static/product/css',
     //     '__PRODUCT_IMG__' => ROOT_PATH . 'public/static/product/img',
     // ),
+=======
+    /* 模板相关配置 */
+    'TMPL_PARSE_STRING' => array(
+        '__STATIC__' => ROOT_PATH . 'public/static',
+        '__PRODUCT_JS__' => ROOT_PATH . 'public/static/product/lib',
+        '__PRODUCT_CSS__' => ROOT_PATH . 'public/static/product/css',
+        '__PRODUCT_IMG__' => ROOT_PATH . 'public/static/product/img',
+    )
+    /* 模板相关配置 */
+    // 'TMPL_PARSE_STRING' => array(
+    //     '__STATIC__' => __ROOT__ . '/Public/static',
+    //     '__ADDONS__' => __ROOT__ . '/Public/' . MODULE_NAME . '/Addons',
+    //     '__IMG__'    => __ROOT__ . '/Public/' . MODULE_NAME . '/images',
+    //     '__CSS__'    => __ROOT__ . '/Public/' . MODULE_NAME . '/css',
+    //     '__JS__'     => __ROOT__ . '/Public/' . MODULE_NAME . '/js',
+    //     '__PUBLIC__'     => __ROOT__ . '/Public',
+    // )
+    
+>>>>>>> 6f0e6a1cef38e4a29aca27bb9cf3a02108c4498f
 ];
