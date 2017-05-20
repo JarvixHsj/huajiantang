@@ -11,4 +11,10 @@ class Index extends Controller
         // dump(ROOT_PATH . '/public/static/product/lib');
        return $this->fetch();
     }
+
+
+    public function details()
+    {
+        return $this->fetch('banner');
+    }
 }

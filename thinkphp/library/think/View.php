@@ -47,6 +47,9 @@ class View
             '__STATIC__' => $root . '/static',
             '__CSS__'    => $root . '/static/css',
             '__JS__'     => $root . '/static/js',
+            '__PRODUCT_JS__' => $root . '/static/product/lib',
+            '__PRODUCT_CSS__' => $root . '/static/product/css',
+            '__PRODUCT_IMG__' => $root . '/static/product/img',
         ];
         $this->replace = array_merge($baseReplace, (array) $replace);
     }
