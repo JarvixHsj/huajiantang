@@ -11,4 +11,9 @@ class Index extends Controller
         // dump(ROOT_PATH . '/public/static/product/lib');
        return $this->fetch();
     }
+
+    public function test()
+    {
+        // var_dump();
+    }
 }
