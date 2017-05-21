@@ -252,7 +252,6 @@ return [
     ],
 
 
-<<<<<<< HEAD
     // 'tpl_replace_string' => [
     //     '__STATIC__' => ROOT_PATH . 'public/static',
     //     '__PRODUCT_JS__' => ROOT_PATH . 'public/static/product/lib',
@@ -267,7 +266,6 @@ return [
     //     '__PRODUCT_CSS__' => ROOT_PATH . 'public/static/product/css',
     //     '__PRODUCT_IMG__' => ROOT_PATH . 'public/static/product/img',
     // ),
-=======
     /* 模板相关配置 */
     'TMPL_PARSE_STRING' => array(
         '__STATIC__' => ROOT_PATH . 'public/static',
@@ -285,5 +283,4 @@ return [
     //     '__PUBLIC__'     => __ROOT__ . '/Public',
     // )
     
->>>>>>> 6f0e6a1cef38e4a29aca27bb9cf3a02108c4498f
 ];
