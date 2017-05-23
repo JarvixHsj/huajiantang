@@ -6,6 +6,8 @@
   <meta name="keywords" content="移动电商服务平台">
   <link rel="shortcut icon" href="https://b.yzcdn.cn/v2/image/yz_fc.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+  <script type="text/javascript" src="__PRODUCT_JS__/jquery.js"></script>
+  <link rel="stylesheet" type="text/css" href="__PRODUCT_CSS__/style.css" />
   <script type="text/javascript" src="lib/jquery.js"></script>
   <link rel="stylesheet" type="text/css" href="__CSS__/style.css" />
   <link rel="stylesheet" type="text/css" href="__JS__/style.css" />
@@ -22,8 +24,8 @@
    .p2{margin-top:1px;font-size:15px;color:#333;}
    .p3{margin-top:20px;font-size:18px;font-weight:bold;color:#ff6600;}
    .bottom-nav{width:100%;height:50px;position: fixed;left:0px;bottom:0px;border-top:2px solid #e5e5e5;}
-   .bottom-nav1{width:50px;height:100%;background:url('./img/3.png');background-size:30px 30px;background-repeat:no-repeat;background-position:center;float: left;}
-   .bottom-nav2{float: left;height:100%;border-left:2px solid #e5e5e5;text-align: center;line-height: 50px;background: url('./img/4.png');background-repeat:no-repeat;background-position:8% 50%;background-size:15px 15px;position: relative;}
+   .bottom-nav1{width:50px;height:100%;background:url('__PRODUCT_IMG__/3.png');background-size:30px 30px;background-repeat:no-repeat;background-position:center;float: left;}
+   .bottom-nav2{float: left;height:100%;border-left:2px solid #e5e5e5;text-align: center;line-height: 50px;background: url('__PRODUCT_IMG__/4.png');background-repeat:no-repeat;background-position:8% 50%;background-size:15px 15px;position: relative;}
    .bottom-container1{width:162px;height:auto;background:#fafafa;font-size: 13px;line-height: 43px;position: absolute;border: 1px solid #ccc;z-index:2;top:-230px;left:-30px;border-radius:5px;text-align: center;display: none;}
    .bottom-container2{width:162px;height:auto;background:#fafafa;font-size: 13px;line-height: 43px;position: absolute;border: 1px solid #ccc;z-index:2;top:-230px;left:-30px;border-radius:5px;text-align: center;display:none;}
    .bottom-container3{width:112px;height:auto;background:#fafafa;font-size: 13px;line-height: 43px;position: absolute;border: 1px solid #ccc;z-index:2;top:-190px;left:-10px;border-radius:5px;text-align: center;display: none;}
@@ -37,8 +39,9 @@
    	  <div class="container">
    	  	 <ul class="container-ul1">
    	  	 	<li>
+				<a href="{:Url('Index/details')}">
    	  	 		<div class="container-img">
-   	  	 			<img src="img/1.jpg"></img>
+   	  	 			<img src="__PRODUCT_IMG__/1.jpg"></img>
 
    	  	 		</div>
    	  	 		<div class="container-text">
@@ -46,16 +49,19 @@
    	  	 			<p class="p2">度套餐,每周一束主题花材</p>
    	  	 			<p class="p3">￥388.00</p>
    	  	 		</div>
+				</a>
    	  	 	</li>
    	  	 	<li>
+				<a href="{:Url('Index/details')}">
    	  	 		<div class="container-img">
-   	  	 			<img src="img/2.jpg"></img>
+   	  	 			<img src="__PRODUCT_IMG__/2.jpg"></img>
    	  	 		</div>
    	  	 		<div class="container-text">
    	  	 			<p class="p1">主题花系列|礼品版,月度,季</p>
    	  	 			<p class="p2">度套餐,每周一束主题花材</p>
    	  	 			<p class="p3">￥468.00</p>
    	  	 		</div>
+				</a>
    	  	 	</li>
    	  	 </ul>
    	  </div>
@@ -104,6 +110,10 @@
 </html>
 <script>
 	$(function(){
+    // $('.container-ul1').click(function(){
+    
+    // })
+
 
     var w=($(window).width()-56)/3+'px';
     $(".bottom-nav2").css("width",w);

@@ -136,7 +136,21 @@ return [
         'taglib_begin' => '{',
         // 标签库标签结束标记
         'taglib_end'   => '}',
+
+        'tpl_cache' => false,
+
+        'tpl_replace_string' => [
+            // '__STATIC__' => ROOT_PATH . 'public/static',
+            // '__JS__' =>  APP_PATH . './public/static/product/lib',
+            // '__PRODUCT_CSS__' =>  './public/static/product/css',
+            // '__PRODUCT_IMG__' =>  './public/static/product/img',
+            
+            ],
+        
     ],
+    // 'view_replace_str'       => [
+    //         '__JSTEST__'  => '/static/img',
+    //     ],
 
     // 视图输出字符串内容替换
     'view_replace_str'       => [],
@@ -238,6 +252,20 @@ return [
     ],
 
 
+    // 'tpl_replace_string' => [
+    //     '__STATIC__' => ROOT_PATH . 'public/static',
+    //     '__PRODUCT_JS__' => ROOT_PATH . 'public/static/product/lib',
+    //     '__PRODUCT_CSS__' => ROOT_PATH . 'public/static/product/css',
+    //     '__PRODUCT_IMG__' => ROOT_PATH . 'public/static/product/img',
+    // ],
+
+    // /* 模板相关配置 */
+    // 'TMPL_PARSE_STRING' => array(
+    //     '__STATIC__' => ROOT_PATH . 'public/static',
+    //     '__PRODUCT_JS__' => ROOT_PATH . 'public/static/product/lib',
+    //     '__PRODUCT_CSS__' => ROOT_PATH . 'public/static/product/css',
+    //     '__PRODUCT_IMG__' => ROOT_PATH . 'public/static/product/img',
+    // ),
     /* 模板相关配置 */
     'TMPL_PARSE_STRING' => array(
         '__STATIC__' => ROOT_PATH . 'public/static',

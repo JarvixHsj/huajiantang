@@ -12,6 +12,12 @@ class Index extends Controller
        return $this->fetch();
     }
 
+
+    public function details()
+    {
+        return $this->fetch('banner');
+    }
+
     public function test()
     {
         // var_dump();
