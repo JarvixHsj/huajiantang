@@ -3,7 +3,7 @@ DROP DATABASE IF EXISTS `flower`;
 
 CREATE DATABASE IF NOT EXISTS `flower`;
 
---用户表
+-- 用户表
 CREATE TABLE IF NOT EXISTS `flower_user`(
 	`user_id` int(11) unsigned not null auto_increment primary key,
 	`user_name` char(50) not null check(user_name !=''),
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `flower_user_order`(
 	`express_id` int(11) not null comment '物流id'
 )engine=InnoDB DEFAULT CHARSET=utf8;
 
---购物车
+-- 购物车
 CREATE TABLE IF NOT EXISTS `flower_user_shopcar`(
 	`id` int(11) unsigned not null auto_increment primary key,
 	`user_id` int(11) not null,
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `flower_user_shopcar`(
 
 
 
---物流
+-- 物流
 CREATE TABLE  IF NOT EXISTS `flower_user_express`(
 	`express_id` int(11) unsigned not null auto_increment primary key,
 	`express_name` varchar(255) not null unique COMMENT '圆通..',
@@ -60,7 +60,7 @@ CREATE TABLE  IF NOT EXISTS `flower_user_express`(
 	`is_disabled` tinyint(1) not null default 0
 )engine=MyIsam default CHARSET=utf8;
 
---我的会员卡
+-- 我的会员卡
 CREATE TABLE IF NOT EXISTS `flower_user_clubcard`(
 	`card_id` int(11) unsigned not null auto_increment primary key,
 	`title` varchar(255) default null,
@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `flower_user_clubcard`(
 )engine=InnoDB default CHARSET=utf8;
 
 
---我的优惠卷
+-- 我的优惠卷
 CREATE TABLE IF NOT EXISTS `flower_user_coupon`(
 	`coupon_id` int(11) unsigned not null auto_increment primary key,
 	`coupon_name` varchar(255) not null,
@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `flower_user_coupon`(
 
 
 
---admin
+-- admin
 CREATE TABLE IF NOT EXISTS `flower_admin` (
 	`id` int(11) unsigned not null auto_increment primary key,
 	`admin_name` varchar(255) not null,
