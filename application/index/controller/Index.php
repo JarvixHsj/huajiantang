@@ -1,10 +1,8 @@
 <?php
 
-	namespace app\index\controller;
+	namespace app\Index\controller;
 	use  \think\Controller as think;
 	use  \think\tools\Curl;
-	//use   app\model\
-	use app\index\Jsticket;
 	use \think\Loader;
 
 
@@ -19,7 +17,7 @@
 	    public function index()
 	    {
 	    
-	    	return $this->fetch('/index');
+	    	return $this->fetch('/user_center');
 	    }
 
 
@@ -27,41 +25,6 @@
 	    {
 	    	return $this->fetch('./address');
 	    }
-
-
-
-
-	 //   	public function wechat_info () {	
-
-		// 	if ( isset($_GET['code']) ) {
-		// 		$code = $_GET['code'];
-		//         $data = Curl::get("https://api.weixin.qq.com/sns/oauth2/access_token?appid=".config('app_id')."&secret=".config('app_secret')."&code=".$code."&grant_type=authorization_code");
-		        
-		//         $data = json_decode( $data);
-		//         $data = Curl::get("https://api.weixin.qq.com/sns/userinfo?access_token=".$data->access_token."&openid=".$data->openid."&lang=zh_CN");
-		//        	$data = json_decode($data);
-		//        	//dump($data);
-		      
-		//        	$arr = array(
-		//        			'wechat_nickname' => $data->nickname,
-		//        			'wechat_openid'   => $data->openid,
-		//        			'u_sex'	   => $data->sex,
-		//        			'wechat_province' => $data->province,
-		//        			'wechat_city'  => $data->city,
-		//        			'wechat_avatar'=> $data->headimgurl
-		//        		);
-		       
-		// 	} else {
-
-		// 		//echo config('app_id');exit;
-		// 		$url = "";
-		// 		$REDIRECT_URI = urlencode($url);    
-	 //         	$url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=".config('app_id')."&redirect_uri=".$REDIRECT_URI."&response_type=code&scope=snsapi_userinfo&state=123123#wechat_redirect";
-
-		//         header("Location:$url");
-		// 	}
-		// }
-
 
 
 
@@ -88,9 +51,6 @@
 			echo '<font color="#f00"><b>统一下单支付单信息</b></font><br/>';
 			printf_info($order);
 			$jsApiParameters = $tools->GetJsApiParameters($order);
-
-			//获取共享收货地址js函数参数
-			//$editAddress = $tools->GetEditAddressParameters();
 		}
 
 
