@@ -18,8 +18,16 @@ class Index extends Controller
         return $this->fetch('banner');
     }
 
-    public function test()
+    //提交订单
+    public function buynow()
     {
-        // var_dump();
+        return $this->fetch('submit');
     }
+
+    public function address()
+    {
+        return $this->fetch('address');
+    }
+
+
 }
