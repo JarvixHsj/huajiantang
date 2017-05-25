@@ -93,10 +93,10 @@
    <div class="blue">
      <div class="top-nav">
       <img class="top-nav-img1" src="__PRODUCT_IMG__/logo.png"></img>
-      <p class="top-nav-p1">花点时间的店</p>
-      <p class="top-nav-p2">我的记录</p>
+      <p class="top-nav-p1">花间堂</p>
+      <!--<p class="top-nav-p2">我的记录</p>-->
       <div class="top-nav-img">
-       <img class="top-nav-img2" src="__PRODUCT_IMG__/search.png"></img>
+       <!--<img class="top-nav-img2" src="__PRODUCT_IMG__/search.png"></img>-->
       </div>
      </div>
      <div class="banner">
@@ -176,16 +176,16 @@
 
    </div>
 
-   <div class="bottom-coupon">
-      <div class="bottom-coupon-nav1">
+   <div class="bottom-coupon" style="width:100%;">
+      <!--<div class="bottom-coupon-nav1">
         <img src="__PRODUCT_IMG__/icon4.png"></img>
         <p>购物车</p>
-      </div>
-      <div class="bottom-coupon-nav2" id="bottom-coupon-nav2">
+      </div>-->
+      <!--<div class="bottom-coupon-nav2" id="bottom-coupon-nav2">
          <p id="addcoupon">加入购物车</p>
-      </div>
-      <div class="bottom-coupon-nav2" style="background:#FF5E15;" id="bottom-coupon-nav3">
-        <p id="coupon">立即购买</p>
+      </div>-->
+      <div class="bottom-coupon-nav2" style="width:100%;background:#FF5E15;">
+        <p>立即购买</p>
       </div>
 
       <div class="bottom-container">
@@ -240,15 +240,21 @@
         </div>
         <div class="bottom-container-btn">加入购物车</div>
       </div>
-
    </div>
  </body>
 </html>
 <script>
    $(function(){
+      var skip_url = "{:Url('Index/buynow')}";
+
+      $('.bottom-coupon-nav2').click(function(){
+          
+
+          window.location.href= skip_url;
+      })
 
     var w=($(window).width()-50)/2+'px';
-    $(".bottom-coupon-nav2").css("width",w);
+    // $(".bottom-coupon-nav2").css("width",w);
 
      var mySwiper = new Swiper('.swiper-container',{
         pagination: '.pagination',
@@ -257,9 +263,7 @@
         paginationClickable: true,
         autoplay:1500
       });
-    
    
-
     $(".time-c").click(function(){
        $(this).removeClass('time-a');
        $(this).addClass('time-b');
@@ -283,10 +287,7 @@
      });
 
      $("#addcoupon").click(function(){
-        
         $(".bottom-container").show();
-        
      });
-
    });
 </script>
