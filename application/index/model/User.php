@@ -31,7 +31,7 @@
 
 		public  function edit_address_phone(array $post)
 		{
-			return (array_key_exists('phone', $post) && array_key_exists('receive_address', $post)) ? $user->allowField(['phone0','receive_address'])->save($_POST, ['id' => self::$user_id]) : false;
+			return (array_key_exists('phone', $post) && array_key_exists('receive_address', $post)) ? $user->allowField(['phone','receive_address'])->save($_POST, ['id' => self::$user_id]) : false;
 
 
 		public  function user_orders()

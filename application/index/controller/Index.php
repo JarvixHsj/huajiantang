@@ -23,7 +23,19 @@
 
 	    public function address() 
 	    {
-	    	return $this->fetch('./address');
+
+	    	if($_POST) {
+
+	    		foreach ($_POST as $key => $value) {
+	    			if ( empty($value) ) {
+	    				
+	    			}
+	    		}
+
+	    	} else {
+	    		return $this->fetch('./address');
+	    	}
+	    	
 	    }
 
 

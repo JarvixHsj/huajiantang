@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>新增地址</title>
+  <link rel="shortcut icon" href="https://b.yzcdn.cn/v2/image/yz_fc.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+  <script type="text/javascript" src="__STATIC__/user/lib/jquery.js"></script>
+  <link rel="stylesheet" type="text/css" href="__STATIC__/user/css/style.css" />
+  <style>
+  .save{width:100%;height:35px;line-height:30px;font-size:18px;margin-top:10px;}
+  .save-p1{float: left;margin-left:15px;}
+  .save-p2{float:right;margin-right:15px;color:#1cec0c;}
+  .container{width:100%;background:#ffffff;margin-top:15px;}
+  .container li{width:100%;border-bottom:1px solid #e5e5e5;font-size:22px;text-align: left;height:55px;}
+  .put{border:none;height:53px;font-size:19px;outline:none;line-height:53px;float: left;background:#ffffff;}
+  .textarea{height:100px;line-height:33px;}
+  .message{margin-left:10px;width:113px;float: left;height:100%;line-height:55px;}
+  .put2{font-size:16px;color:#ff1300;}
+  @media screen and (max-width: 330px) {
+    .container li{font-size:18px;}
+    .put{font-size:16px;}
+    .message{width:90px;}
+    .textarea{line-height:40px;}
+  }
+  </style>
+ </head>
+ <body>
+  <div class="blue">
+  	<div class="save">
+  		<p class="save-p1" onclick="_data(this,'cancel')">取消</p>
+  		<p class="save-p2" onclick="_data(this,'save')">保存</p>
+  	</div>
+
+    <form action="{:url('index/address')}" id="post_data" method="post">
+  	<ul class="container">
+  		<li>
+  		    <p class="message">联系人&nbsp:</p>
+  			<input type="text" placeholder="名字" class="put name" onfocus="this.placeholder=''" onblur="this.placeholder='名字' " name="user_name"></input>
+  		</li>
+  		<li>
+  		    <p class="message">发货人&nbsp:</p>
+  			<input type="text" placeholder="11位手机号" class="put num" onfocus="this.placeholder=''" onblur="this.placeholder='11位手机号' "  id="put2" name="send_phone"></input>
+  		</li>
+      <li>
+          <p class="message">收货人&nbsp:</p>
+        <input type="text" placeholder="11位手机号" class="put num" onfocus="this.placeholder=''" onblur="this.placeholder='11位手机号' "  id="put1" name="receive_phone"></input>
+      </li>
+  		<li>
+  		    <p class="message">选择地区:</p>
+  			<input type="text" placeholder="地区信息" class="put area" onfocus="this.placeholder=''" onblur="this.placeholder='地区信息' " name="area"></input>
+  		</li>
+  		<li style="height:110px;">
+  		    <p class="message">纤细地址:</p>
+  			<textarea type="text" placeholder="街道门牌信息" class="put textarea" onfocus="this.placeholder=''" onblur="this.placeholder='街道门牌信息' " name="address"></textarea>
+  		</li>
+  		<li>
+  		    <p class="message">邮政编码:</p>
+  			<input type="text" placeholder="邮政编码" class="put mail" onfocus="this.placeholder=''" onblur="this.placeholder='邮政编码' " name="post_code"></input>
+  		</li>
+  	</ul>
+    </form>
+
+
+  </div>
+ </body>
+</html>
+<script>
+	$(function(){
+        var width=$(window).width()-123+'px';
+        $(".put").css("width",width);
+  		  $(".save-p2").click(function(){
+  			var name=$(".name").val();
+  			var num=$(".num").val();
+  			var area=$(".area").val();
+  			var textarea=$(".textarea").val();
+  			var mail=$(".mail").val();
+        checkMobile(num);
+		});
+
+       function checkMobile(str) {
+         var re = /^1\d{10}$/
+         if (re.test(str)) {
+             clearInterval(timer);
+             code();
+         } else {
+         	 $("#put1").addClass('put2');
+             $("#put1").val("请输入正确手机号码"); 
+         };
+     };
+
+       $("#put1").focus(function(){
+        	$("#put1").removeClass('put2');
+        	$("#put1").val("");
+        });
+
+	});
+
+
+  function _data(object,string) 
+  {
+    switch(string) {
+        case 'cancel':
+            document.getElementById('post_data').reset();
+          break;
+        case 'save':
+            document.getElementById('post_data').submit();
+          break;
+    }
+  }
+</script>
