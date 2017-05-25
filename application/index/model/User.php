@@ -20,7 +20,7 @@
 
 		public  function add_user(array $post) 
 		{
-			is_array($post) ? return $this->data($post)->save() : return false;
+			return  is_array($post) ?  $this->data($post)->save()  :  false;
 		}
 
 		public  function find_user_info($user_id)
@@ -31,7 +31,7 @@
 
 		public  function edit_address_phone(array $post)
 		{
-			array_key_exists('phone', $post) && array_key_exists('receive_address', $post) ? return $user->allowField(['phone0','receive_address'])->save($_POST, ['id' => self::$user_id]) : return false;
+			return (array_key_exists('phone', $post) && array_key_exists('receive_address', $post)) ? $user->allowField(['phone0','receive_address'])->save($_POST, ['id' => self::$user_id]) : false;
 
 
 		public  function user_orders()
