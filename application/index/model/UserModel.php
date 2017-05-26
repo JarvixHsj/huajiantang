@@ -1,6 +1,6 @@
 <?php
 
-	namespace app\Index\model;
+	namespace app\index\model;
 
 	use think\Model;
 
@@ -8,7 +8,7 @@
 	{
 
 
-	  	protected $table = 'flower_user';
+	  	protected $table = 'user';
 	  	protected static $user_id;
 
 		protected static function init()
@@ -23,7 +23,7 @@
 			return  is_array($post) ?  $this->data($post)->save()  :  false;
 		}
 
-		public  function find_user_info()
+		public  function find_user_info($user_id)
 		{
 			return $this->where("user_id", self::$user_id)->find();
 		}
