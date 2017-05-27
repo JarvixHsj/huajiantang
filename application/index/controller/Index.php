@@ -1,67 +1,89 @@
 <?php
 
-	namespace app\index\controller;
+	namespace app\Index\controller;
 	use  \think\Controller as think;
 	use  \think\tools\Curl;
-	//use   app\model\
-	use app\index\Jsticket;
 	use \think\Loader;
-
+	use app\Index\model\User;
 
 	class Index extends think
 	{	
 		
+
+		protected static $model;
+
 		public function __construct(){
 			parent::__construct();
+			self::$model = new User();
 			
 		}
 
 	    public function index()
 	    {
+	    	dump($_SESSION);
+	    	$data = self::$model->find_user_info();
+	    	dump($data);
+	    	$this->assign( self::$model->find_user_info());
 	    
-	    	return $this->fetch('/index');
+	    	return $this->fetch('/user_center');
 	    }
 
 
 	    public function address() 
 	    {
-	    	return $this->fetch('./address');
+
+	    	if($_POST) {
+
+	    		foreach ($_POST as $key => $value) {
+	    			empty($value) && isset($_SERVER['HTTP_REFERER']) ?  header("Location:{$_SERVER['HTTP_REFERER']}") : redirect(APP_PATH."/");
+
+	    			$_POST[$key] = trim(strip_tags($value));
+	    		}
+
+	    		if ($this->user_data($_POST))   echo '<script>alter(\'保存成功\')</script>';$this->index();
+
+	    	} else {
+	    		return $this->fetch('./address');
+	    	}
+	    	
+	    }
+
+
+	    public function add_user() 
+	    {
+	    	$arr = [
+	    		'wechat_nickname'=>'maccha',
+	    		'wechat_avatar'=>'sas',
+	    		'wechat_province'=>'广东',
+	    		'wechat_city'=>'广州',
+	    		'wechat_openid'=>time(),
+	    		'reg_time'=>time(),
+	    		'reg_ip'=> request()->ip()
+	    	];
+
+	    	sesssion('user_id', db("user")->insertGetId($arr)); 
 	    }
 
 
 
+	    private function user_data(array $post) 
+	    {
 
-	 //   	public function wechat_info () {	
+	    	session('user_id') ? $post['user_id']= session('user_id') : '1';
 
-		// 	if ( isset($_GET['code']) ) {
-		// 		$code = $_GET['code'];
-		//         $data = Curl::get("https://api.weixin.qq.com/sns/oauth2/access_token?appid=".config('app_id')."&secret=".config('app_secret')."&code=".$code."&grant_type=authorization_code");
-		        
-		//         $data = json_decode( $data);
-		//         $data = Curl::get("https://api.weixin.qq.com/sns/userinfo?access_token=".$data->access_token."&openid=".$data->openid."&lang=zh_CN");
-		//        	$data = json_decode($data);
-		//        	//dump($data);
-		      
-		//        	$arr = array(
-		//        			'wechat_nickname' => $data->nickname,
-		//        			'wechat_openid'   => $data->openid,
-		//        			'u_sex'	   => $data->sex,
-		//        			'wechat_province' => $data->province,
-		//        			'wechat_city'  => $data->city,
-		//        			'wechat_avatar'=> $data->headimgurl
-		//        		);
-		       
-		// 	} else {
+	    	return db("user")->data($post)->add(); 
 
-		// 		//echo config('app_id');exit;
-		// 		$url = "";
-		// 		$REDIRECT_URI = urlencode($url);    
-	 //         	$url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=".config('app_id')."&redirect_uri=".$REDIRECT_URI."&response_type=code&scope=snsapi_userinfo&state=123123#wechat_redirect";
+	    }
 
-		//         header("Location:$url");
-		// 	}
+
+
+	 //    private static  function order_no()
+	 //    {
+    	
+  //   		mt_srand((double) microtime() * 1000000);
+     
+  //   		return date('Ymd') . str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT);
 		// }
-
 
 
 
@@ -88,9 +110,6 @@
 			echo '<font color="#f00"><b>统一下单支付单信息</b></font><br/>';
 			printf_info($order);
 			$jsApiParameters = $tools->GetJsApiParameters($order);
-
-			//获取共享收货地址js函数参数
-			//$editAddress = $tools->GetEditAddressParameters();
 		}
 
 
