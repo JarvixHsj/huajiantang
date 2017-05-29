@@ -8,21 +8,15 @@
   <script type="text/javascript" src="__STATIC__/user/lib/jquery.js"></script>
   <link rel="stylesheet" type="text/css" href="__STATIC__/user/css/style.css" />
   <style>
-  .save{width:100%;height:35px;line-height:30px;font-size:18px;margin-top:10px;}
+  .save{width:100%;height:35px;line-height:30px;font-size:16px;margin-top:10px;}
   .save-p1{float: left;margin-left:15px;}
   .save-p2{float:right;margin-right:15px;color:#1cec0c;}
   .container{width:100%;background:#ffffff;margin-top:15px;}
-  .container li{width:100%;border-bottom:1px solid #e5e5e5;font-size:22px;text-align: left;height:55px;}
-  .put{border:none;height:53px;font-size:19px;outline:none;line-height:53px;float: left;background:#ffffff;}
-  .textarea{height:100px;line-height:33px;}
+  .container li{width:100%;border-bottom:1px solid #e5e5e5;font-size:16px;text-align: left;height:55px;}
+  .put{border:none;height:53px;font-size:14px;outline:none;line-height:53px;float: left;background:#ffffff;}
+  .textarea{height:100px;line-height:30px;    line-height: 50px;}
   .message{margin-left:10px;width:113px;float: left;height:100%;line-height:55px;}
   .put2{font-size:16px;color:#ff1300;}
-  @media screen and (max-width: 330px) {
-    .container li{font-size:18px;}
-    .put{font-size:16px;}
-    .message{width:90px;}
-    .textarea{line-height:40px;}
-  }
   </style>
  </head>
  <body>
@@ -36,27 +30,66 @@
   	<ul class="container">
   		<li>
   		    <p class="message">联系人&nbsp:</p>
-  			<input type="text" placeholder="名字" class="put name" onfocus="this.placeholder=''" onblur="this.placeholder='名字' " name="phone_call_people"></input>
+
+        <?php  if($user_info['phone_call_people']):?>
+             <input type="text" placeholder="{$user_info['phone_call_people']}" class="put name" onfocus="this.placeholder=''" onblur="this.placeholder='{$user_info[\'phone_call_people\']}' " name="phone_call_people" value="{$user_info['phone_call_people']}"></input>
+        <?php else:?>
+            <input type="text" placeholder="名字" class="put name" onfocus="this.placeholder=''" onblur="this.placeholder='名字' " name="phone_call_people"></input>
+        <?php endif;?>
+  		
   		</li>
   		<li>
-  		    <p class="message">发货人&nbsp:</p>
-  			<input type="text" placeholder="11位手机号" class="put num" onfocus="this.placeholder=''" onblur="this.placeholder='11位手机号' "  id="put2" name="send_phone"></input>
+  		    <p class="message">发货人手机号码&nbsp:</p>
+    
+        <?php  if($user_info['phone']):?> 
+  			   <input type="text" placeholder="{$user_info['phone']}" class="put num" onfocus="this.placeholder=''" onblur="this.placeholder='{$user_info[\'phone\']}' "  id="put2" name="phone" maxlength="11" value="{$user_info['phone']}"></input>
+         <?php else:?>
+            <input type="text" placeholder="送达后我们会联系他" class="put num" onfocus="this.placeholder=''" onblur="this.placeholder='送达后我们会联系他' "  id="put2" name="phone" maxlength="11"></input>
+        <?php endif;?>
   		</li>
       <li>
-          <p class="message">收货人&nbsp:</p>
-        <input type="text" placeholder="11位手机号" class="put num" onfocus="this.placeholder=''" onblur="this.placeholder='11位手机号' "  id="put1" name="receive_phone"></input>
+          <p class="message">收货人手机号码&nbsp:</p>
+
+         <?php  if($user_info['receive_phone_call']):?> 
+            <input type="text" placeholder="{$user_info['receive_phone_call']}" class="put num" onfocus="this.placeholder=''" onblur="this.placeholder='{$user_info[\'receive_phone_call\']}' "  id="put1" name="receive_phone_call" maxlength="11" value="{$user_info['receive_phone_call']}"></input>
+         <?php else:?>
+           <input type="text" placeholder="送货途中如有问题方便联系您" class="put num" onfocus="this.placeholder=''" onblur="this.placeholder='送货途中如有问题方便联系您' "  id="put1" name="receive_phone_call" maxlength="11"></input>
+        <?php endif;?>
+       
+
       </li>
   		<li>
   		    <p class="message">选择地区:</p>
-  			<input type="text" placeholder="地区信息" class="put area" onfocus="this.placeholder=''" onblur="this.placeholder='地区信息' " name="area"></input>
+          
+
+         <?php  if($user_info['area']):?> 
+            <input type="text" placeholder="{$user_info['area']}" class="put area" onfocus="this.placeholder=''" onblur="this.placeholder='{$user_info[\'area\']}' " name="area" value="{$user_info['area']}"></input>
+         <?php else:?>
+           <input type="text" placeholder="地区信息" class="put area" onfocus="this.placeholder=''" onblur="this.placeholder='地区信息' " name="area"></input>
+        <?php endif;?>
+     
   		</li>
   		<li style="height:110px;">
   		    <p class="message">纤细地址:</p>
-  			<textarea type="text" placeholder="街道门牌信息" class="put textarea" onfocus="this.placeholder=''" onblur="this.placeholder='街道门牌信息' " name="detail_address"></textarea>
+        
+         <?php  if($user_info['detail_address']):?> 
+           <textarea type="text" placeholder="{$user_info['detail_address']}" class="put textarea" onfocus="this.placeholder=''" onblur="this.placeholder='{$user_info[\'detail_address\']}' " name="detail_address" value="{$user_info['detail_address']}">{$user_info['detail_address']}</textarea>
+         <?php else:?>
+          <textarea type="text" placeholder="街道门牌信息" class="put textarea" onfocus="this.placeholder=''" onblur="this.placeholder='街道门牌信息' " name="detail_address"></textarea>
+        <?php endif;?>
+  			
+
   		</li>
   		<li>
   		    <p class="message">邮政编码:</p>
-  			<input type="text" placeholder="邮政编码" class="put mail" onfocus="this.placeholder=''" onblur="this.placeholder='邮政编码' " name="email_code"></input>
+        
+         <?php  if($user_info['email_code']):?> 
+            <input type="text" placeholder="{$user_info['email_code']}" class="put mail" onfocus="this.placeholder='{$user_info[\'email_code\']}'" onblur="this.placeholder='' " name="email_code" maxlength="6" value="{$user_info['email_code']}"></input>
+         <?php else:?>
+            <input type="text" placeholder="邮政编码" class="put mail" onfocus="this.placeholder=''" onblur="this.placeholder='邮政编码' " name="email_code" maxlength="6"></input>
+        <?php endif;?>
+  			
+
   		</li>
   	</ul>
     </form>
@@ -101,7 +134,8 @@
   {
     switch(string) {
         case 'cancel':
-            document.getElementById('post_data').reset();
+            //document.getElementById('post_data').reset();
+           window.location.href = "{:url('index/index')}";
           break;
         case 'save':
             document.getElementById('post_data').submit();

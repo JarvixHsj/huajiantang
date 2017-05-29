@@ -14,7 +14,7 @@
 		protected static function init()
 		{
 			parent::init();
-			if( !self::$user_id)  self::$user_id = session('user_id'); 
+			if( !self::$user_id)  session('user_id') ?self::$user_id = session('user_id') : '2'; 
 		}
 
 
@@ -25,13 +25,14 @@
 
 		public  function find_user_info()
 		{
-			return $this->where("user_id", self::$user_id)->find();
+			return $this->where("user_id", self::$user_id)->find()->toArray();
 		}
 
 
 		public  function edit_address_phone(array $post)
 		{
-			return (array_key_exists('phone', $post) && array_key_exists('receive_address', $post)) ? $this->allowField(['phone','receive_address'])->save($_POST, ['id' => self::$user_id]) : false;
+			
+			return $this->allowField(true)->update($_POST,['user_id' => self::$user_id])->toArray();
 
 		}
 		
@@ -40,8 +41,8 @@
 		public  function user_orders()
 		{
 			return [
-				'all_orders' => db("order")->where("user_id",self::$user_id)->select(),
-				'wait_pay_orders' => db("order")->where(["user_id"=>self::$user_id,"is_paid"=>'0'])->select()
+				'all_orders' => db("user_order")->where("user_id",self::$user_id)->select(),
+				'wait_pay_orders' => db("user_order")->where(["user_id"=>self::$user_id,"is_paid"=>'0'])->select()
 			];
 		}	
 
@@ -50,7 +51,6 @@
 		{
 			return db("user_shopcar")->where("user_id",self::$user_id)->select();
 		}
-
 
 
 

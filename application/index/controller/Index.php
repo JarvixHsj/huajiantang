@@ -15,20 +15,21 @@
 		public function __construct(){
 			parent::__construct();
 			self::$model = new User();
+
 			
 		}
 
+		//
 	    public function index()
 	    {
-	    	dump($_SESSION);
-	    	$data = self::$model->find_user_info();
-	    	dump($data);
-	    	$this->assign( self::$model->find_user_info());
+	    	
+
+	    	$this->assign('user_info' ,self::$model->find_user_info());
 	    
 	    	return $this->fetch('/user_center');
 	    }
 
-
+	    //修改收货地址
 	    public function address() 
 	    {
 
@@ -39,19 +40,53 @@
 
 	    			$_POST[$key] = trim(strip_tags($value));
 	    		}
-
-	    		if ($this->user_data($_POST))   echo '<script>alter(\'保存成功\')</script>';$this->index();
-
+	    		
+	    		if ( $info = self::$model->edit_address_phone($_POST)) {
+	    			echo "<script>alert('保存成功');window.history.go(-2)</script>";
+	    		}  
+	    		
 	    	} else {
+
+	    		$this->assign('user_info' ,self::$model->find_user_info());
 	    		return $this->fetch('./address');
 	    	}
 	    	
 	    }
 
 
+	    //全部订单
+	    public function user_all_orders() 
+	    {	
+	    	$this->assign('list', self::$model->user_orders());
+	    	return $this->fetch();
+	    }
+
+
+	    //待付款
+	    public function user_wait_pay()
+	    {
+	    	$this->assign('list', self::$model->user_orders());
+	    	return $this->fetch();
+	    }
+
+	    //我的购物车
+	    public function user_shopcar()
+	    {
+	    	$this->assign('list', self::$model->shop_car());
+	    	return $this->fetch('./shoplist');
+	    }
+
+	    //收花日历   修改订单
+	    public function user_amend()
+	    {
+	    	return $this->fetch('./amend');
+	    }
+
+
 	    public function add_user() 
 	    {
 	    	$arr = [
+	    		'user_name' => 'maccha',
 	    		'wechat_nickname'=>'maccha',
 	    		'wechat_avatar'=>'sas',
 	    		'wechat_province'=>'广东',
@@ -66,15 +101,7 @@
 
 
 
-	    private function user_data(array $post) 
-	    {
-
-	    	session('user_id') ? $post['user_id']= session('user_id') : '1';
-
-	    	return db("user")->data($post)->save(); 
-
-	    }
-
+	
 
 
 	 //    private static  function order_no()
