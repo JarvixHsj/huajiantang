@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `flower_user`(
 	`receive_phone_call` int(11) default null comment '收货人手机',
 	`area` varchar(255) default null comment '地区',
 	`detail_address` varchar(255) default null comment '详细地址',
-	`email_code` int(6) default null
+	`email_code` int(6) default null  comment '邮编'
 )engine=InnoDB DEFAULT CHARSET=utf8;
 
 -- 订单表
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `flower_user_order`(
 	`receive_address` varchar(255) not null comment '收货地址',
 	`send_phone_call` int(11) not null comment '发货人手机',
 	`receive_phone_call` int(11) not null comment '收货人手机',
-	`email_code` int(6) default null,
+	`email_code` int(6) default null comment '邮编',
 	`add_time` int(11) not null,
 	`coupon_id` int(11) default null comment '优惠券id',
 	`is_paid` tinyint(1) default 0 comment '是否支付',

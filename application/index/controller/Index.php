@@ -35,7 +35,7 @@
 	    	if($_POST) {
 
 	    		foreach ($_POST as $key => $value) {
-	    			empty($value) && isset($_SERVER['HTTP_REFERER']) ?  header("Location:{$_SERVER['HTTP_REFERER']}") : redirect(APP_PATH."/");
+	    			empty($value)  ?  header("Location:{$_SERVER['HTTP_REFERER']}") : redirect(APP_PATH."/");
 
 	    			$_POST[$key] = trim(strip_tags($value));
 	    		}
@@ -61,7 +61,7 @@
 	    		'reg_ip'=> request()->ip()
 	    	];
 
-	    	sesssion('user_id', db("user")->insertGetId($arr)); 
+	    	session('user_id', db("user")->insertGetId($arr)); 
 	    }
 
 
@@ -71,7 +71,7 @@
 
 	    	session('user_id') ? $post['user_id']= session('user_id') : '1';
 
-	    	return db("user")->data($post)->add(); 
+	    	return db("user")->data($post)->save(); 
 
 	    }
 
