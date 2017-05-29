@@ -67,11 +67,7 @@ return [
     // 用户名
     'username'        => 'huajiantang',
     // 密码
-<<<<<<< HEAD
     'password'        => 'huajiantang2017',
-=======
-    'password'        => '134520',
->>>>>>> e2bca682fed8cd8d6dee7e96f54095fe9e05244c
     // 端口
     'hostport'        => '3306',
     // 连接dsn
