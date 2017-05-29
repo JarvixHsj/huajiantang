@@ -22,8 +22,8 @@
 		//
 	    public function index()
 	    {
-	    	
-
+	    	//session('user_id','2');	
+	    	//dump($_SESSION);
 	    	$this->assign('user_info' ,self::$model->find_user_info());
 	    
 	    	return $this->fetch('/user_center');

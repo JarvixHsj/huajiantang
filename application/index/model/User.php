@@ -14,7 +14,7 @@
 		protected static function init()
 		{
 			parent::init();
-			if( !self::$user_id)  session('user_id') ?self::$user_id = session('user_id') : '2'; 
+			if( !self::$user_id)  session('user_id') ? self::$user_id = session('user_id') : '2'; 
 		}
 
 
@@ -25,14 +25,14 @@
 
 		public  function find_user_info()
 		{
-			return $this->where("user_id", self::$user_id)->find()->toArray();
+			return $this->where("user_id", self::$user_id)->find();
 		}
 
 
 		public  function edit_address_phone(array $post)
 		{
 			
-			return $this->allowField(true)->update($_POST,['user_id' => self::$user_id])->toArray();
+			return $this->allowField(true)->update($_POST,['user_id' => self::$user_id]);
 
 		}
 		
