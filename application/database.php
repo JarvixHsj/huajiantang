@@ -64,17 +64,11 @@ return [
     'hostname'        => '47.93.231.146',
     // 数据库名
     'database'        => 'flower',
-<<<<<<< HEAD
- 
-	'username'        => 'huajiantang',
-
-	'password'        => 'huajiantang2017',
-=======
     // 用户名
     'username'        => 'huajiantang',
     // 密码
     'password'        => 'huajiantang2017',
->>>>>>> 50991a389721a54df75e3b367088ad37e28e3077
+
     // 端口
     'hostport'        => '3306',
     // 连接dsn
