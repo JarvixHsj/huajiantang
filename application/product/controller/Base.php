@@ -1,6 +1,6 @@
 <?php
 
-	namespace app\controller;
+	namespace app\product\controller;
 	use \think\Controller;
 
 	class Base extends Controller
