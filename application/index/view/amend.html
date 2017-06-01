@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>花点时间</title>
+   <link rel="shortcut icon" href="https://b.yzcdn.cn/v2/image/yz_fc.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+  <script type="text/javascript" src="lib/jquery.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <style>
+   .header{width:100%;height:50px;background:#ffffff;text-align: center;line-height: 50px;position: relative;}
+   .header-left{width:50%;height:100%;float: left;}
+   .header-right{width:50%;height:100%;float: right;}
+   .line{width:25%;height:3px;background:#c3d700;position: absolute;bottom:0px;left:12%;}
+   .bac{width:100%;height:190px;margin-top: 20px;}
+   .bac img{width:100%;height:100%;}
+   .container-btn{width:90%;height:50px;background:#ffffff;margin:20px auto;position: relative;}
+   .code{border:none;outline: none;height:50px;width:100%;text-indent:10px;}
+   .btn{width:90%;height:39px;line-height:39px;color:#ffffff;font-size: 20px;border-radius:5px;background: #c3d700;margin:20px auto;}
+   .container-text{width:90%;text-align:left;margin:10px auto;}
+   .container-text p{margin-top:5px;color:#a2a2a2;font-size:13px;}
+   .p1{font-size:15px;}
+   .put3{font-size:16px;color:#ff1300;}
+   .container-put2{display: none;}
+   #btn{width:100px;height:30px;line-height:30px;border-left: 1px solid #e6e6e6;color: #212121;font-size: 14px;text-align: center;position: absolute;right:0px;top:10px;}
+  </style>
+ </head>
+ <body>
+  <div class="blue">
+  	<div class="header">
+  		<div class="header-left">我是收花人</div>
+  		<div class="header-right">我是订花人</div>
+      <div class="line"></div>
+  	</div>
+  	<div class="bac">
+  		<img src="img/hd.jpg"></img>
+  	</div>
+  	<div class="container-put1">
+      <div class="container-btn">
+        <input type="text" placeholder="收花人手机号" id="put1" class="code code2" onfocus="this.placeholder=''" onblur="this.placeholder='收花人手机号' "></input>
+         <div id="btn">获取验证码</div>
+      </div>
+      <div class="container-btn">
+        <input type="text" placeholder="短信验证码" class="code" onfocus="this.placeholder=''" onblur="this.placeholder='短信验证码' "></input>
+      </div>
+     
+    </div>
+    <div class="container-put2">
+      <div class="container-btn">
+        <input type="text" placeholder="订单编号" class="code" onfocus="this.placeholder=''" onblur="this.placeholder='订单编号' "></input>
+      </div>
+      <div class="container-btn">
+        <input type="text" placeholder="收花人手机" class="code" onfocus="this.placeholder=''" onblur="this.placeholder='收花人手机' "></input>
+      </div>
+      <div class="container-btn">
+        <input type="text" placeholder="图形验证码" class="code" onfocus="this.placeholder=''" onblur="this.placeholder='图形验证码' "></input>
+      </div>
+    </div>
+
+    <div class="btn">查询</div>
+    <div class="container-text">
+      <p class="p1">请您按照如下修改规则按需提交:</p>
+      <P>1,仅支持周期鲜花的修改申请.</p>
+      <p>2,周六收花，请您在周四17点前修改;周一收花,请您在周六17点前修改.</p>
+      <P>3,只可选择周六,周一作为收花时间，如遇节假日,</p>
+      <P>我们将统一调整收花时间并及时告知.</p>
+      <P>4,收花地址暂不能修改省/直辖市</p>
+      <P>5,如已修改某期收花人手机,仍需用下单时收花人手机查询订单.</p>
+      <P>6,每次收花只有最多10次修改机会.</p>
+    </div>
+  </div>
+ </body>
+</html>
+<script>
+	$(function(){
+
+    var string="发送验证码";
+    var i=60;
+    var timer=null;
+    $("#btn").click(function(){
+      var value=$("#put1").val();
+      checkMobile(value);
+       
+    });
+    
+
+		 $(".header-left").click(function(){
+       $(".line").animate({"left":"12%"},200);
+       $(".container-put1").show();
+       $(".container-put2").hide();
+     });
+
+     $(".header-right").click(function(){
+       $(".line").animate({"left":"62%"},200);
+       $(".container-put1").hide();
+       $(".container-put2").show();
+     });
+    
+     $("#put1").focus(function(){
+          $("#put1").removeClass('put3');
+          $("#put1").val("");
+        });
+
+        function code(){
+        timer=setInterval(function(){
+          if(i<10){
+            $("#btn").html('0'+i);
+          }else{
+            $("#btn").html(i);
+          };
+          
+          i--;
+          if(i<0){
+            i=60;
+           $("#btn").html(string);
+                 clearInterval(timer);
+          };
+          
+          },1000);
+        };
+
+
+
+     function checkMobile(str) {
+         var re = /^1\d{10}$/
+         if (re.test(str)) {
+             clearInterval(timer);
+             code();
+         } else {
+           $("#put1").addClass('put3');
+             $("#put1").val("请输入正确手机号码"); 
+         };
+     };
+
+
+	});
+</script>

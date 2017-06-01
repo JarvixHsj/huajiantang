@@ -3,38 +3,50 @@ DROP DATABASE IF EXISTS `flower`;
 
 CREATE DATABASE IF NOT EXISTS `flower`;
 
+use `flower`;
+
 -- 用户表
 CREATE TABLE IF NOT EXISTS `flower_user`(
 	`user_id` int(11) unsigned not null auto_increment primary key,
 	`user_name` char(50) not null check(user_name !=''),
 	`user_sex` enum('1','2') not null default '1' COMMENT '1：男,2：女',
-	`wechat_openid` int(11) not null,
+	`wechat_openid` varchar(255) not null,
 	`wechat_nickname` varchar(255) not null,
 	`wechat_avatar` varchar(255) not null,
 	`wechat_province` varchar(255) not null,
 	`wechat_city` varchar(255) not null,
-	`phone` int(25) unsigned default null ,
+	`phone` char(25) unsigned default null,
 	`password` varchar(25) default null,
-	`reg_ip` varchar(11) not null,
-	`reg_time` int(11) not null，
+	`reg_ip` varchar(255) not null default '127.0.0.1',
+	`reg_time` int(11) not null,
 	`integral`  int(11) default null comment '积分',
-	`receive_address` varchar(255) default null '收货地址'
+	`phone_call_people` varchar(255) not null comment '联系人',
+	`receive_address`char(25) default null comment '收货地址',
+	`receive_phone_call` char(25) default null comment '收货人手机',
+	`area` varchar(255) default null comment '地区',
+	`detail_address` varchar(255) default null comment '详细地址',
+	`email_code` int(6) default null  comment '邮编'
 )engine=InnoDB DEFAULT CHARSET=utf8;
 
 -- 订单表
 CREATE TABLE IF NOT EXISTS `flower_user_order`(
 	`id` int(11) unsigned not null auto_increment primary key,
-	`user_id` int(11) not null,
-	`product_id` int(11) not null comment '商品id',
+	`order_no` varchar(255) not null unique comment '订单号',
+	`user_id` int(11) not null default 1,
+	`phone_call_people` varchar(255) not null comment '联系人',
+	`product_id` int(11) not null default 1 comment '商品id',
 	`receive_address` varchar(255) not null comment '收货地址',
-	`receive_phone_call` int(11) not null,
-	`email_code` int(6) default null,
+	`send_phone_call` int(11) not null comment '发货人手机',
+	`receive_phone_call` int(11) not null comment '收货人手机',
+	`email_code` int(6) default null comment '邮编',
 	`add_time` int(11) not null,
 	`coupon_id` int(11) default null comment '优惠券id',
 	`is_paid` tinyint(1) default 0 comment '是否支付',
 	`is_send` tinyint(1) default 0 comment '是否发货',
 	`is_succeed` tinyint(1) default 0 comment '交易成功',
-	`express_id` int(11) not null comment '物流id'
+	`express_id` int(11) default null comment '物流id',
+	`area` varchar(255) not null comment '地区',
+	`detail_address` varchar(255) not null comment '详细地址'
 )engine=InnoDB DEFAULT CHARSET=utf8;
 
 -- 购物车

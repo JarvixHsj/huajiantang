@@ -1,6 +1,6 @@
 <?php
 
-	namespace app\index\model;
+	namespace app\Index\model;
 
 	use think\Model;
 
@@ -8,22 +8,22 @@
 	{
 
 
-	  	protected $table = 'user';
-	  	protected $user_id;
+	  	protected $table = 'flower_user';
+	  	protected static $user_id;
 
-		protected static function initialize()
+		protected static function init()
 		{
-			parent::initialize();
-			if( !self::$user_id)  self::$user_id = session('user_id'); 
+			parent::init();
+			if( !self::$user_id)  session('user_id') ? self::$user_id = session('user_id') : '2'; 
 		}
 
 
 		public  function add_user(array $post) 
 		{
-			is_array($post) ? return $this->data($post)->save() : return false;
+			return  is_array($post) ?  $this->data($post)->save()  :  false;
 		}
 
-		public  function find_user_info($user_id)
+		public  function find_user_info()
 		{
 			return $this->where("user_id", self::$user_id)->find();
 		}
@@ -31,23 +31,26 @@
 
 		public  function edit_address_phone(array $post)
 		{
-			array_key_exists('phone', $post) && array_key_exists('receive_address', $post) ? return $user->allowField(['phone0','receive_address'])->save($_POST, ['id' => self::$user_id]) : return false;
+			
+			return $this->allowField(true)->update($_POST,['user_id' => self::$user_id]);
+
+		}
+		
 
 
 		public  function user_orders()
 		{
 			return [
-				'all_orders' => model("order")->where("user_id",self::$user_id)->select(),
-				'wait_pay_orders' => model("order")->where(["user_id"=>self::$user_id,"is_paid"=>'0'])->select()
+				'all_orders' => db("user_order")->where("user_id",self::$user_id)->select(),
+				'wait_pay_orders' => db("user_order")->where(["user_id"=>self::$user_id,"is_paid"=>'0'])->select()
 			];
 		}	
 
 
 		public  function shop_car()
 		{
-			return model("user_shopcar")->where("user_id",self::$user_id)->select();
+			return db("user_shopcar")->where("user_id",self::$user_id)->select();
 		}
-
 
 
 
