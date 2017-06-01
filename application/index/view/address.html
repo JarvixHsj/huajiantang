@@ -8,6 +8,7 @@
   <script type="text/javascript" src="__STATIC__/user/lib/jquery.js"></script>
   <link rel="stylesheet" type="text/css" href="__STATIC__/user/css/style.css" />
   <style>
+  body{font-size: 12px;}
   .save{width:100%;height:35px;line-height:30px;font-size:16px;margin-top:10px;}
   .save-p1{float: left;margin-left:15px;}
   .save-p2{float:right;margin-right:15px;color:#1cec0c;}
@@ -16,7 +17,7 @@
   .put{border:none;height:53px;font-size:14px;outline:none;line-height:53px;float: left;background:#ffffff;}
   .textarea{height:100px;line-height:30px;    line-height: 50px;}
   .message{margin-left:10px;width:113px;float: left;height:100%;line-height:55px;}
-  .put2{font-size:16px;color:#ff1300;}
+  .put2{font-size:14px;color:#ff1300;}
   </style>
  </head>
  <body>
@@ -29,7 +30,7 @@
     <form action="{:url('index/address')}" id="post_data" method="post">
   	<ul class="container">
   		<li>
-  		    <p class="message">联系人&nbsp:</p>
+  		    <p class="message">联系人&nbsp;:</p>
 
         <?php  if($user_info['phone_call_people']):?>
              <input type="text" placeholder="{$user_info['phone_call_people']}" class="put name" onfocus="this.placeholder=''" onblur="this.placeholder='{$user_info[\'phone_call_people\']}' " name="phone_call_people" value="{$user_info['phone_call_people']}"></input>
@@ -39,7 +40,7 @@
   		
   		</li>
   		<li>
-  		    <p class="message">发货人手机号码&nbsp:</p>
+  		    <p class="message">发货人&nbsp;:</p>
     
         <?php  if($user_info['phone']):?> 
   			   <input type="text" placeholder="{$user_info['phone']}" class="put num" onfocus="this.placeholder=''" onblur="this.placeholder='{$user_info[\'phone\']}' "  id="put2" name="phone" maxlength="11" value="{$user_info['phone']}"></input>
@@ -48,7 +49,7 @@
         <?php endif;?>
   		</li>
       <li>
-          <p class="message">收货人手机号码&nbsp:</p>
+          <p class="message">收货人&nbsp;:</p>
 
          <?php  if($user_info['receive_phone_call']):?> 
             <input type="text" placeholder="{$user_info['receive_phone_call']}" class="put num" onfocus="this.placeholder=''" onblur="this.placeholder='{$user_info[\'receive_phone_call\']}' "  id="put1" name="receive_phone_call" maxlength="11" value="{$user_info['receive_phone_call']}"></input>
@@ -61,7 +62,6 @@
   		<li>
   		    <p class="message">选择地区:</p>
           
-
          <?php  if($user_info['area']):?> 
             <input type="text" placeholder="{$user_info['area']}" class="put area" onfocus="this.placeholder=''" onblur="this.placeholder='{$user_info[\'area\']}' " name="area" value="{$user_info['area']}"></input>
          <?php else:?>
