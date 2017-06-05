@@ -62,16 +62,25 @@
 	    //全部订单
 	    public function user_all_orders() 
 	    {	
-	    	$this->assign('list', self::$model->user_orders());
-	    	return $this->fetch('./allorder');
+
+	    	//$data = self::$model->shop_car_count();
+	    	if ( self::$model->shop_car_count() > 0) {
+	    		$this->assign('list', self::$model->user_orders());
+	    		return $this->fetch('./allorder');
+	    	} else {
+	    		return $this->fetch('./no_order');
+	    	}
+
+
+	    	
 	    }
 
 
 	    //待付款
 	    public function user_wait_pay()
 	    {
-	    	$this->assign('list', self::$model->user_orders());
-	    	return $this->fetch();
+	    	$this->assign('list', self::$model->user_orders()['wait_pay_orders']);
+	    	return $this->fetch('./obligation');
 	    }
 
 	    //我的购物车

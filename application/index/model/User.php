@@ -53,6 +53,10 @@
 		}
 
 
+		public function shop_car_count()
+		{
+			return db('user_shopcar')->where("user_id", self::$user_id)->count();
+		}
 
 
 	}
