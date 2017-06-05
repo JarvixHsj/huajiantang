@@ -22,7 +22,8 @@
 		//
 	    public function index()
 	    {
-	    	//session('user_id','2');	
+	    	session('user_info.user_id','2');	
+	    	//$_SESSION['user_info']['user_id'] = '2';
 	    	//dump($_SESSION);
 	    	$this->assign('user_info' ,self::$model->find_user_info());
 	    
@@ -47,7 +48,11 @@
 	    		
 	    	} else {
 
+	    		//$data = self::$model->find_user_info();
+	    		//dump($_SESSION)
+	    		//dump($data);
 	    		$this->assign('user_info' ,self::$model->find_user_info());
+
 	    		return $this->fetch('./address');
 	    	}
 	    	
@@ -58,7 +63,7 @@
 	    public function user_all_orders() 
 	    {	
 	    	$this->assign('list', self::$model->user_orders());
-	    	return $this->fetch();
+	    	return $this->fetch('./allorder');
 	    }
 
 

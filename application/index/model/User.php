@@ -14,7 +14,7 @@
 		protected static function init()
 		{
 			parent::init();
-			if( !self::$user_id)  session('user_id') ? self::$user_id = session('user_id') : '2'; 
+			if( !self::$user_id)  session('user_info.user_id') ? self::$user_id = session('user_info.user_id') : '2'; 
 		}
 
 
