@@ -4,11 +4,13 @@
   <meta charset="UTF-8">
   <title>主题花系列 | DIY版，月度、季度套餐，每周一束主题花材</title>
   <link rel="shortcut icon" href="https://b.yzcdn.cn/v2/image/yz_fc.ico">
-  <link rel="stylesheet" href="__PRODUCT_CSS__/swiper.css">
+  <link rel="stylesheet" href="css/swiper.css">
   <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
-  <script type="text/javascript" src="__PRODUCT_JS__/jquery.js"></script>
-  <script src="__PRODUCT_JS__/swiper.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="__PRODUCT_CSS__/style.css" />
+  <script type="text/javascript" src="lib/jquery.js"></script>
+  <script src="lib/swiper.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <link rel="stylesheet" type="text/css" href="layui/css/layui.css" />
+  <script type="text/javascript" src="layui/layui.js"></script>
   <style>
    .bac{width:100%;height:100%;position:fixed;left:0px;top:0px;
     z-index:12;background:rgba(0,0,0,0.6);display: none;
@@ -54,10 +56,10 @@
    .item-text2{text-indent:10px;font-size:20px;margin-top:10px;color:#f8610f;padding-bottom:10px;}
    .item-hr{margin-left:10px;height:1px;width:100%;border:none;background-color: #e5e5e5;}
    .item-fare{color:#999;font-size:13px;text-indent:10px;padding:5px;padding-bottom:10px;}
-   .select{width:100%;height:35px;background:#ffffff;margin-top:10px;text-align: left;}
+   .select{width:100%;height:39px;background:#ffffff;margin-top:10px;text-align: left;}
    .select p{text-indent:10px;line-height:35px;float: left;}
    .select img{float:right;width:6px;height:12px;margin-right:10px;margin-top:9px;}
-   .store{width:100%;height:auto;background:#ffffff;margin-top:15px;line-height:30px;}
+   .store{width:100%;height:auto;background:#ffffff;margin-top:20px;line-height:30px;}
    .store-img{width:20px;height:20px;float: left;margin-left:10px;margin-top:5px;}
    .store-text{float: left;margin-left:20px;}
    .store-text2{float: right;margin-right:10px;padding-bottom:10px;}
@@ -71,17 +73,21 @@
    .ulstyle{margin-top:20px;border-radius:10px;border:1px solid rgb(188, 96, 145);padding: 10px;}
    .ulstyle2{margin-top:10px;}
    .ulstyle3{margin-top:20px;margin-bottom:20px;}
-   .bottom-container{width:100%;background:#f8f8f8;position:fixed;left:0px;bottom:0px;z-index:100;text-align: left;display: none;}
+   .bottom-container{width:100%;background:#f8f8f8;position:fixed;left:0px;z-index:100;text-align: left;display: none;}
+   .popups{width:279px;height:35px;line-height:35px;font-size:14px;color:#ffffff;border-radius:5px;background:rgba(0,0,0,0.8);z-index:999;position: absolute;top:35%;left:50%;margin-left:-139px;text-align: center;display: none;}
    .bottom-container-btn{width:100%;height:50px;line-height:50px;color:#ffffff;font-size:22px;background:#FF5E15;margin-top:10px;text-align: center;}
    .bottom-container-select{width:100%;background:#ffffff;}
-   .select-time-text{text-indent:10px;padding-top:15px;}
-   .select-time-ul{width:100%;height:35px;margin-top:15px;}
-   .time-a{height:30px;text-align: center;line-height:30px;border:1px solid #999;color:#333;border-radius:5px;float: left;margin-left:10px;}
-   .time-b{height:30px;text-align: center;line-height:30px;border-radius:5px;float: left;margin-left:10px;background:#FF5E15;color:#ffffff;}
+   #form{width:100%;}
+   .radio{width:20px;height:20px;margin-left: 10px;background:#ffffff;}
    .select-time-ul2{width:100%;height:50px;background:#ffffff;}
    .select-num{float: left;margin-left: 10px;line-height: 50px;}
    .select-add{float: right;margin-right:10px;margin-top:9px;}
-   .add{float: right;width:35px;height:30px;border: 1px solid #999;color:#666;font-size:20px;text-align: center;line-height:30px;}
+   .add{float: right;width:35px;height:30px;border: 1px solid #999;color:#666;font-size:18px;text-align: center;line-height:30px;}
+   .close-container{position: absolute;top:16px;right:6px;width:22px;height:22px;}
+   .close-container img{width:100%;height:100%;}
+   .form-select{margin-left: 10px;width:200px;height:35px;line-height: 35px;border:1px solid #eeeeee;border-radius:5px;}
+   .put-text{width:100%;text-align: left;text-indent: 10px;font-size: 15px;height:30px;line-height: 30px;margin-top: 10px;}
+   .form-p{position: relative;top:-5px;margin-left: 5px;}
    @media screen and (max-width:320px){
      .banner{width:100%;height:320px;}
      .item-text{font-size:14px;}
@@ -92,20 +98,20 @@
    <div class="bac"></div>
    <div class="blue">
      <div class="top-nav">
-      <img class="top-nav-img1" src="__PRODUCT_IMG__/logo.png"></img>
-      <p class="top-nav-p1">花间堂</p>
-      <!--<p class="top-nav-p2">我的记录</p>-->
+      <img class="top-nav-img1" src="img/logo.png"></img>
+      <p class="top-nav-p1">花点时间的店</p>
+      <p class="top-nav-p2">我的记录</p>
       <div class="top-nav-img">
-       <!--<img class="top-nav-img2" src="__PRODUCT_IMG__/search.png"></img>-->
+       <img class="top-nav-img2" src="img/search.png"></img>
       </div>
      </div>
      <div class="banner">
         <div class="swiper-container">
           <div class="swiper-wrapper">
-            <div class="swiper-slide"><a href=""><img src="__PRODUCT_IMG__/banner1.png"></a></div>
-            <div class="swiper-slide"><a href=""><img src="__PRODUCT_IMG__/banner2.png"></a></div>
-            <div class="swiper-slide"><a href=""><img src="__PRODUCT_IMG__/banner3.png"></a></div>
-            <div class="swiper-slide"><a href=""><img src="__PRODUCT_IMG__/banner4.png"></a></div>
+            <div class="swiper-slide"><a href=""><img src="img/banner1.png"></a></div>
+            <div class="swiper-slide"><a href=""><img src="img/banner2.png"></a></div>
+            <div class="swiper-slide"><a href=""><img src="img/banner3.png"></a></div>
+            <div class="swiper-slide"><a href=""><img src="img/banner4.png"></a></div>
           </div>
         </div>
         <div class="pagination"></div>
@@ -114,121 +120,100 @@
      <div class="item">
        <p class="item-text" style="margin-top:15px;">主题花系列 | DIY版，月度、季度套餐，每周一束</p>
        <p class="item-text">主题花材</p>
-       <p class="item-text2">￥<span class="span1">{$info['price']}<span></p>
-       <!-- <p class="item-text2">￥<span class="span1">388.00</span>-<span class="span2">1333.00<span></p> -->
+       <p class="item-text2">￥<span class="span1">388.00</span>-<span class="span2">1333.00<span></p>
        <hr class="item-hr"></hr>
        <p class="item-fare">运费:￥0.00</p>
      </div>
 
-     <div class="select">
+     <div class="select" id="select-option">
        <p>选择:收货时间&nbsp&nbsp商品规格&nbsp&nbsp收花区域</p>
-       <img src="__PRODUCT_IMG__/icon1.png"></img>
+       <img src="img/icon1.png"></img>
      </div>
      
      <div class="store">
-       <img src="__PRODUCT_IMG__/store.png" class="store-img"></img>
+       <img src="img/store.png" class="store-img"></img>
        <p class="store-text">花点时间的店</p>
-       <img src="__PRODUCT_IMG__/icon1.png" class="store-icon"></img>
+       <img src="img/icon1.png" class="store-icon"></img>
        <p class="store-text2">进入店铺</p>
        <hr class="item-hr"></hr>
      </div>
 
      <div class="company">
-       <img src="__PRODUCT_IMG__/icon2.jpg"></img>
+       <img src="img/icon2.jpg"></img>
        <p>企业认证</p>
-       <img src="__PRODUCT_IMG__/icon2.jpg" style="margin-left:20px;"></img>
+       <img src="img/icon2.jpg" style="margin-left:20px;"></img>
        <p>担保交易</p>
      </div>
      
      <div class="container-list">
        <ul class="container-list-ul">
-        <li><img src="__PRODUCT_IMG__/list1.jpg"></img></li>
-        <li><img src="__PRODUCT_IMG__/list2.jpg"></img></li>
-        <li><img src="__PRODUCT_IMG__/list3.jpg"></img></li>
-        <li><img src="__PRODUCT_IMG__/list4.jpg"></img></li>
+        <li><img lay-src="img/list1.jpg"></img></li>
+        <li><img lay-src="img/list2.jpg"></img></li>
+        <li><img lay-src="img/list3.jpg"></img></li>
        </ul>
        <ul class="container-list-ul ulstyle">
-          <li><img src="__PRODUCT_IMG__/list5.png"></img></li>
-          <li><img src="__PRODUCT_IMG__/list6.png"></img></li>
+          <li><img lay-src="img/list5.png"></img></li>
+          <li><img lay-src="img/list6.png"></img></li>
        </ul>
 
        <ul class="container-list-ul ulstyle2">
-          <li><img src="__PRODUCT_IMG__/list7.png"></img></li>
-          <li><img src="__PRODUCT_IMG__/list8.png"></img></li>
-          <li><img src="__PRODUCT_IMG__/list9.png"></img></li>
+          <li><img lay-src="img/list7.jpg"></img></li>
+          <li><img lay-src="img/list9.png"></img></li>
        </ul>
        
-       <ul class="container-list-ul ulstyle3">
-          <li><a href=""><img src="__PRODUCT_IMG__/list10.png"></img></a></li>
+       <ul class="container-list-ul ulstyle2">
+          <li><img lay-src="img/list15.png"></img></li>
+          <li><img lay-src="img/list13.png" style="margin-top:10px;"></img></li>
        </ul>
-       
-        <ul class="container-list-ul ulstyle2">
-          <li><img src="__PRODUCT_IMG__/list11.png"></img></li>
-          <li><img src="__PRODUCT_IMG__/list12.png"></img></li>
-        </ul>
-        
-        <ul class="container-list-ul ulstyle2">
-          <li><img src="__PRODUCT_IMG__/list15.png"></img></li>
-          <li><img src="__PRODUCT_IMG__/list13.png" style="margin-top:10px;"></img></li>
-          <li><img src="__PRODUCT_IMG__/list14.png" style="margin-top:10px;"></img></li>
-        </ul>
 
      </div>
 
    </div>
 
-   <div class="bottom-coupon" style="width:100%;">
-      <!--<div class="bottom-coupon-nav1">
-        <img src="__PRODUCT_IMG__/icon4.png"></img>
+   <div class="bottom-coupon">
+      <div class="bottom-coupon-nav1">
+        <img src="img/icon4.png"></img>
         <p>购物车</p>
-      </div>-->
-      <!--<div class="bottom-coupon-nav2" id="bottom-coupon-nav2">
+      </div>
+      <div class="bottom-coupon-nav2" id="bottom-coupon-nav2">
          <p id="addcoupon">加入购物车</p>
-      </div>-->
-      <div class="bottom-coupon-nav2" style="width:100%;background:#FF5E15;">
-        <p>立即购买</p>
+      </div>
+      <div class="bottom-coupon-nav2" style="background:#FF5E15;" id="bottom-coupon-nav3">
+        <p id="coupon">立即购买</p>
       </div>
 
-      <div class="bottom-container">
+   </div>
+
+   <div class="bottom-container">
+        <div class="popups">请选择 收货时间 和 商品规格 和 收花区域</div>
         <div class="item">
-          <p class="item-text" style="margin-top:15px;">主题花系列 | DIY版，月度、季度套餐，每周一束</p>
+          <div class="close-container"><img src="img/icon5.png"></img></div>
+          <p class="item-text" style="margin-top:15px;font-size:14px;">主题花系列 | DIY版，月度、季度套餐，每周一束</p>
           <p class="item-text">主题花材</p>
           <p class="item-text2">￥<span class="span1">388.00</span>-<span class="span2">1333.00<span></p>
           <hr class="item-hr"></hr>
         </div>
 
         <div class="bottom-container-select">
-          <div class="select-time">
-            <p class="select-time-text">收货时间:</p>
-            <ul class="select-time-ul">
-             <li class="time-a time-c">周一收花</li>
-             <li class="time-a time-c">周六收花</li>
-            </ul>
-          </div>
-
-          <div class="select-time">
-            <p class="select-time-text">商品规格:</p>
-            <ul class="select-time-ul">
-             <li class="time-a time-c">季度12束+1张祝福卡服务</li>
-             <li class="time-a time-c">季度12束</li>
-            </ul>
-
-            <ul class="select-time-ul">
-               <li class="time-a time-c">月度4束</li>
-               <li class="time-a time-c">月度4束+1张祝福卡服务</li>
-            </ul>
-          </div>
-          
-           <div class="select-time" style="padding-bottom:10px;">
-            <p class="select-time-text">收花区域:</p>
-            <ul class="select-time-ul">
-             <li class="time-a time-c">非京津冀江浙沪皖粤川重庆昆明青岛济南地区</li>
-            </ul>
-
-            <ul class="select-time-ul">
-               <li class="time-a time-c">京津冀江浙沪皖粤川重庆昆明青岛济南地区</li>
-            </ul>
-          </div>
+          <form action="" method="" id="form">
+           <p class="put-text">收花时间:</p>
+           <input type="radio" checked="checked" name="time" value="monday" class="radio regular-radio"><label for="radio-1-1"></label><span class="form-p">周一收花</span></input>
+           <input type="radio"  name="time" value="saturday" class="radio regular-radio"><label for="radio-1-2"></label><span class="form-p">周六收花</span></input>
+           </br>
+           <p class="put-text">商品规格:</p>
+           <select class="form-select">
+             <option value ="quarter">季度12束+1张祝福卡服务</option>
+             <option value ="quartera">季度12束</option>
+             <option value="mon">月度4束</option>
+             <option value="mona">月度4束+1张祝福卡服务</option>
+           </select>
+           </br>
+           <p class="put-text">收花区域:</p>
+           <select class="form-select">
+             <option value ="mainsite">京津冀江浙沪皖粤川重庆昆明青岛济南地区</option>
+             <option value ="notmainsite">非京津冀江浙沪皖粤川重庆昆明青岛济南地区</option>
+           </select>
+          </form>
           <hr class="item-hr"></hr>
           <ul class="select-time-ul2">
              <li class="select-num">购买数量:</li>
@@ -240,22 +225,20 @@
           </ul>
         </div>
         <div class="bottom-container-btn">加入购物车</div>
-      </div>
    </div>
  </body>
 </html>
 <script>
    $(function(){
-      var skip_url = "{:Url('Index/buynow')}";
 
-      $('.bottom-coupon-nav2').click(function(){
-          
-
-          window.location.href= skip_url;
-      })
+    var width=-($(".bottom-container").outerHeight())+'px';
+    console.log(width);
+    $(".bottom-container").css("bottom",width);
+    
 
     var w=($(window).width()-50)/2+'px';
-    // $(".bottom-coupon-nav2").css("width",w);
+    $(".bottom-coupon-nav2").css("width",w);
+    
 
      var mySwiper = new Swiper('.swiper-container',{
         pagination: '.pagination',
@@ -264,7 +247,25 @@
         paginationClickable: true,
         autoplay:1500
       });
-   
+
+    var a=1;
+    var valueTime=null;
+    var valueStandard=null;
+    var valueSite=null;
+
+    $(".value-time li").click(function(){
+       valueTime=$(this).html();
+    });
+
+    $(".value-standard li").click(function(){
+       valueStandard=$(this).html();
+    });
+
+    $(".value-site li").click(function(){
+       valueSite=$(this).html();
+    });
+
+
     $(".time-c").click(function(){
        $(this).removeClass('time-a');
        $(this).addClass('time-b');
@@ -272,15 +273,15 @@
        $(this).siblings('li').removeClass('time-b');
     });
      
-     var a=1;
+     
      $("#add").click(function(){
        a++;
        $("#num").html(a);
      });
 
      $("#remove").click(function(){
-         if(a==0){
-           $("#num").html(0);
+         if(a==1){
+           $("#num").html(1);
          }else{
             a--;
             $("#num").html(a);
@@ -288,7 +289,84 @@
      });
 
      $("#addcoupon").click(function(){
+        $(".bac").show();
+        $(".bottom-container-btn").html("加入购物车");
         $(".bottom-container").show();
+        $(".bottom-container").animate({bottom:"0px"},300);
+        $(".bac").click(function(){
+           $(".bac").hide();
+           $(".bottom-container").hide();
+           $(".bottom-container").animate({bottom:width},300);
+        });
+        $(".close-container").click(function(){
+         $(".bac").hide();
+         $(".bottom-container").hide();
+         $(".bottom-container").animate({bottom:width},300);
+        });
      });
+
+     $("#coupon").click(function(){
+        $(".bac").show();
+        $(".bottom-container-btn").html("下一步");
+        $(".bottom-container").show();
+        $(".bottom-container").animate({bottom:"0px"},300);
+        $(".bac").click(function(){
+           $(".bac").hide();
+           $(".bottom-container").hide();
+           $(".bottom-container").animate({bottom:width},300);
+        });
+
+        $(".close-container").click(function(){
+          $(".bac").hide();
+         $(".bottom-container").hide();
+         $(".bottom-container").animate({bottom:width},300);
+        });
+
+     });
+
+     $("#select-option").click(function(){
+        $(".bac").show();
+        $(".bottom-container-btn").html("加入购物车");
+        $(".bottom-container").show();
+        $(".bottom-container").animate({bottom:"0px"},300);
+        $(".bac").click(function(){
+           $(".bac").hide();
+           $(".bottom-container").hide();
+           $(".bottom-container").animate({bottom:width},300);
+        });
+        $(".close-container").click(function(){
+         $(".bac").hide();
+         $(".bottom-container").hide();
+         $(".bottom-container").animate({bottom:width},300);
+        });
+
+     });
+
+
+    $(".bottom-container-btn").click(function(){
+        if(valueTime==null||valueStandard==null||valueSite==null){
+          $(".popups").show();
+          setTimeout(function(){
+             $(".popups").hide();
+          },2000);
+        }else{
+          $(".popups").html("已添加到购物车");
+          $(".popups").show();
+           setTimeout(function(){
+             $(".popups").hide();
+          },2000);
+
+        };
+
+    });
+
+
+    layui.use('flow', function(){
+      var flow = layui.flow;
+      flow.lazyimg(); 
+    });
+    
+
+
    });
 </script>
