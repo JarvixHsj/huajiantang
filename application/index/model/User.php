@@ -14,7 +14,7 @@
 		protected static function init()
 		{
 			parent::init();
-			if( !self::$user_id)  session('user_id') ? self::$user_id = $_SESSION['user_info']['user_id'] : '2'; 
+			if( !self::$user_id)  session('user_info.user_id') ? self::$user_id = session('user_info.user_id') : '2'; 
 		}
 
 
@@ -53,6 +53,10 @@
 		}
 
 
+		public function shop_car_count()
+		{
+			return db('user_shopcar')->where("user_id", self::$user_id)->count();
+		}
 
 
 	}

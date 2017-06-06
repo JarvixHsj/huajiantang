@@ -22,7 +22,8 @@
 		//
 	    public function index()
 	    {
-	    	//session('user_id','2');	
+	    	session('user_info.user_id','2');	
+	    	//$_SESSION['user_info']['user_id'] = '2';
 	    	//dump($_SESSION);
 	    	$this->assign('user_info' ,self::$model->find_user_info());
 	    
@@ -47,7 +48,11 @@
 	    		
 	    	} else {
 
+	    		//$data = self::$model->find_user_info();
+	    		//dump($_SESSION)
+	    		//dump($data);
 	    		$this->assign('user_info' ,self::$model->find_user_info());
+
 	    		return $this->fetch('./address');
 	    	}
 	    	
@@ -57,16 +62,25 @@
 	    //全部订单
 	    public function user_all_orders() 
 	    {	
-	    	$this->assign('list', self::$model->user_orders());
-	    	return $this->fetch();
+
+	    	//$data = self::$model->shop_car_count();
+	    	if ( self::$model->shop_car_count() > 0) {
+	    		$this->assign('list', self::$model->user_orders());
+	    		return $this->fetch('./allorder');
+	    	} else {
+	    		return $this->fetch('./no_order');
+	    	}
+
+
+	    	
 	    }
 
 
 	    //待付款
 	    public function user_wait_pay()
 	    {
-	    	$this->assign('list', self::$model->user_orders());
-	    	return $this->fetch();
+	    	$this->assign('list', self::$model->user_orders()['wait_pay_orders']);
+	    	return $this->fetch('./obligation');
 	    }
 
 	    //我的购物车

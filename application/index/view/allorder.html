@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>全部订单</title>
+  <link rel="shortcut icon" href="https://b.yzcdn.cn/v2/image/yz_fc.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+  <script type="text/javascript" src="__STATIC__/user/lib/jquery.js"></script>
+  <link rel="stylesheet" type="text/css" href="__STATIC__/user/css/style.css" />
+  <style>
+   .blue{margin:50px auto;}
+   .btn{width:90px;height:30px;border-radius:5px;border:1px solid #fb8506;color:#fb8506;line-height: 30px;margin:15px auto;}
+   .btn a{color:#fb8506;}
+   .container{width:100%;text-align: center;margin:0px auto;}
+   .order{width:100%;margin-top:10px;background: #ffffff;}
+   .order li{width:100%;height:180px;border-top:1px solid #eeeeee;
+    border-bottom:1px solid #eeeeee;}
+   .left{float: left;}
+   .right{float:right;margin-right:10px;}
+   .order-top{width:100%;height:50px;}
+   .orange{color:#fb8506;}
+   .p1{height:25px;line-height:25px;font-size:14px;}
+   .p2{height:25px;line-height:25px;font-size: 13px;color:#979595;}
+   .p3{font-size: 14px;margin-top: 10px;}
+   .order-container{width:100%;height:100px;background:#f8f8f8;}
+   .total{width:100%;height:22px;line-height: 22px;font-size: 14px;}
+   .img{width:100%;height:100%;}
+   .order-container-m{width:90px;height:90px;float: left;margin-left: 10px;margin-top:5px;}
+   .order-container-num{float: right;height:100%;width:60px;text-align: right;margin-right: 10px;}
+   .num-p1{margin-top:5px;}
+   .num-p2{font-size:13px;margin-top: 5px;}
+   .order-container-text{height:100%;word-wrap:break-word;overflow: hidden;float: left;text-align: left;padding-left: 10px;}
+   .order-p1{font-size: 13px;color:#939392;}
+   .bottom-text{width:100%;font-size: 14px;height:50px;line-height: 50px;text-align: center;color:#939392;}
+  </style>
+ </head>
+ <body>
+  <div class="blue" style="display:none;">
+    <p style="color:#6f6e6d;">居然还没有订单</p>
+    <p style="color:#aba9a6;">好东西,手慢无</p>
+    <div class="btn"><a href="">去逛逛</a></div>
+  </div>
+  <div class="container">
+    <ul class="order">
+       <li>
+         <div class="order-top">
+          <div class="left" style="height:100%;text-align:left;text-indent:10px;">
+            <p class="p1">店铺:花点时间的店</p>
+            <p class="p2">订单编号:E20171312313131321</p>
+          </div>
+          <div class="right">
+            <p class="orange p3">交易完成</p>
+          </div>
+         </div>
+         <div class="order-container">
+           <div class="order-container-m">
+            <img src="__STATIC__/user/img/1.jpg" class="img"></img>
+           </div>
+           <div class="order-container-text">
+             <span>【新用户专享,限时直降40】99元月/4束</span>
+             <p class="order-p1">1个月(4束)周一收花+1张祝福卡服务 京津冀江浙沪皖粤鲁川重庆昆明地区</p>
+           </div>
+           <div class="order-container-num">
+            <p class="num-p1">￥108.00</p>
+            <p class="num-p2">x1</p>
+           </div>
+         </div>
+         <div class="total">
+          <p class="right">合计:<span class="orange">￥103.00</span></p>
+         </div>
+       </li>
+    </ul>
+  </div>
+  <div class="bottom-text">
+   <p>啊哦,没有更多订单啦~</p>
+  </div>
+ </body>
+</html>
+<script>
+  $(function(){
+    var width=$(window).width()-179+'px';
+    $(".order-container-text").css("width",width);
+  });
+</script>
