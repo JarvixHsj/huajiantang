@@ -30,12 +30,13 @@
 	    	return $this->fetch('/user_center');
 	    }
 
+
+
 	    //修改收货地址
-	    public function address() 
+	    public function set_address()
 	    {
-
 	    	if($_POST) {
-
+	    		//dump($_POST);die;
 	    		foreach ($_POST as $key => $value) {
 	    			empty($value)  ?  header("Location:{$_SERVER['HTTP_REFERER']}") : redirect(APP_PATH."/");
 
@@ -45,19 +46,25 @@
 	    		if ( $info = self::$model->edit_address_phone($_POST)) {
 	    			echo "<script>alert('保存成功');window.history.go(-2)</script>";
 	    		}  
-	    		
+
 	    	} else {
 
-	    		//$data = self::$model->find_user_info();
-	    		//dump($_SESSION)
-	    		//dump($data);
 	    		$this->assign('user_info' ,self::$model->find_user_info());
-
-	    		return $this->fetch('./address');
+	    		return $this->fetch('./setaddress');
 	    	}
-	    	
 	    }
 
+
+
+	    public function set_account()
+	    {
+	    	if($_POST) {
+
+	    	} else {
+	    		return $this->fetch('./setaccount');
+	    	}
+	    	return $this->fetch('./setaccount');
+	    }
 
 	    //全部订单
 	    public function user_all_orders() 

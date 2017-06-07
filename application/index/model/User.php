@@ -49,7 +49,19 @@
 
 		public  function shop_car()
 		{
-			return db("user_shopcar")->where("user_id",self::$user_id)->select();
+
+
+			$data = db('user_shopcar')
+					->alias('s')
+					->join('product p','s.product_id = p.id')
+					->select();
+			
+			foreach($data as $k=>$val) {
+				if($val['product_id'] ==1) $data[$k]['product_pic'] = '/qwqw';
+				if($val['product_id'] ==2) $data[$k]['product_pic'] = '/123123';
+			}
+
+			return $data;
 		}
 
 

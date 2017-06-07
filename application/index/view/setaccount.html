@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>全部订单</title>
+  <link rel="shortcut icon" href="https://b.yzcdn.cn/v2/image/yz_fc.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+  <script type="text/javascript" src="__STATIC__/user/lib/jquery.js"></script>
+  <link rel="stylesheet" type="text/css" href="__STATIC__/user/css/style.css" />
+  <style>
+   .header{width:100%;height:50px;text-align: center;}
+   .header p{color: #7c7b83;font-size:20px;margin-top: 20px;}
+   .container{width:100%;background:#ffffff;}
+   .container-style{width:100%;height:50px;border-bottom:1px solid #e5e5e5;}
+   .p1{float: left;margin-left:10px;margin-top:10px;color:#333;font-size: 14px;}
+   .message{float: left;border:none;outline: none;height:35px;font-size:15px;line-height: 35px;margin-left:5px;}
+   .btn{height:35px;line-height: 35px;color:#ffffff;background:#06bf04;text-align: center;margin-left: 10px;margin-top: 10px;border-radius: 5px;font-size: 12px;}
+   .code{width:90px;height:26px;line-height:26px;color:#06bf04;border:1px solid #06bf04;border-radius: 3px;position: absolute;top:5px;right:10px;text-align: center;font-size: 12px;}
+   .put3{font-size:15px;color:#ff1300;}
+  </style>
+ </head>
+ <body>
+  <div class="header">
+   <p style="font-size: 14px;">设置新手机号</p>
+  </div>
+  <div class="container">
+   <div class="container-style">
+      <p class="p1">新手机号:</p>
+      <input type="text" placeholder="&nbsp;&nbsp;&nbsp;&nbsp;请输入您的手机号" id="put1" class="message" onfocus="this.placeholder=''" onblur="this.placeholder='&nbsp;&nbsp;&nbsp;&nbsp;请输入您的手机号' " style="font-size: 12px;" maxlength="11"></input>
+   </div>
+   <div class="container-style" style="position:relative;">
+      <p class="p1">验证码 :</p>
+      <input type="text" placeholder="&nbsp;&nbsp;&nbsp;&nbsp;请输入短信验证码"  class="message" onfocus="this.placeholder=''" onblur="this.placeholder='&nbsp;&nbsp;&nbsp;&nbsp;请输入短信验证码' " style="font-size: 12px;" maxlength="4"></input>
+      <div class="code" id="btn">获取验证码</div>
+   </div>
+  </div>
+  <div class="btn">确认提交</div>
+  <div class="btn" style="background:#ffffff;"><a href="{:url('index/index')}">返回</a></div>
+ </body>
+</html>
+<script>
+  $(function(){
+    var width=$(window).width()-20+'px';
+    $(".btn").css("width",width);
+    
+    var string="发送验证码";
+    var i=60;
+    var timer=null;
+    $("#btn").click(function(){
+      var value=$("#put1").val();
+      checkMobile(value);
+       
+    });
+
+    $("#put1").focus(function(){
+         $("#put1").removeClass('put3');
+         $("#put1").val("");
+       });
+
+       function code(){
+       timer=setInterval(function(){
+         if(i<10){
+           $("#btn").html('0'+i);
+         }else{
+           $("#btn").html(i);
+         };
+         
+         i--;
+         if(i<0){
+           i=60;
+          $("#btn").html(string);
+                clearInterval(timer);
+         };
+         
+         },1000);
+       };
+
+
+
+    function checkMobile(str) {
+        var re = /^1\d{10}$/
+        if (re.test(str)) {
+            clearInterval(timer);
+            code();
+        } else {
+          $("#put1").addClass('put3');
+            $("#put1").val("请输入正确手机号码"); 
+        };
+    };
+
+  });
+</script>

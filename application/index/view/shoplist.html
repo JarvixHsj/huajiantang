@@ -1,3 +1,5 @@
+<!-- <?php dump($list);?> -->
+
 <!doctype html>
 <html lang="en">
  <head>
@@ -54,7 +56,11 @@
              <p class="p1 p3">花点时间的店</p>
              <div class="compile">编辑</div>
        </div>
+
+
        <ul class="container-list">
+
+<?php foreach($list as $k=>$v):?>
          <li class="container-list-li">
           <div class="add-order">
             <div class="add order-add">+</div>
@@ -65,28 +71,17 @@
           <img class="icon-img select select-one" src="__STATIC__/user/img/icon6.png"></img>
           <div class="item-img"><img src="__STATIC__/user/img/1.jpg"></img></div>
           <div class="item-container">
-           <p class="item-p">主题花系列|DIY版,月度，季度套</p>
-           <p class="item-p">餐,每周一束主题花材</p>
+           <p class="item-p"><?=$v['name']?></p>
+           <p class="item-p"><?=$v['intro']?></p>
            <p class="item-p">周一收花,季度12束+1张祝福卡服务</p>
-           <p class="item-p item-account">￥<span class="item-num2">1333.0</span><span class="item-num">x<span>1</span></span></p>
+           <p class="item-p item-account">￥<span class="item-num2"><?=$v['product_price']?></span>
+
+           <span class="item-num">x<span><?=$v['produce_num']?></span></span></p>
           </div>
          </li>
-         <li class="container-list-li">
-          <div class="add-order">
-            <div class="add order-add">+</div>
-            <div class="add order-num">1</div>
-            <div class="add order-reduce">-</div>
-          </div>
-          <div class="remove">删除</div>
-          <img class="icon-img select select-one" src="__STATIC__/user/img/icon6.png"></img>
-          <div class="item-img"><img src="__STATIC__/user/img/1.jpg"></img></div>
-          <div class="item-container">
-           <p class="item-p">主题花系列|DIY版,月度，季度套</p>
-           <p class="item-p">餐,每周一束主题花材</p>
-           <p class="item-p">周一收花,季度12束+1张祝福卡服务</p>
-           <p class="item-p item-account">￥<span class="item-num2">1333.0</span><span class="item-num">x<span>1</span></span></p>
-          </div>
-         </li>
+<?php endforeach;?>
+
+       
 
        </ul>
     </div>
