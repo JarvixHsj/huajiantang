@@ -4,6 +4,7 @@
 	use  \think\Controller as think;
 	use  \think\tools\Curl;
 	use \think\Loader;
+	use think\Db;
 	use app\Index\model\User;
 
 	class Index extends think
@@ -15,8 +16,6 @@
 		public function __construct(){
 			parent::__construct();
 			self::$model = new User();
-
-			
 		}
 
 		//
@@ -77,8 +76,6 @@
 	    	} else {
 	    		return $this->fetch('./no_order');
 	    	}
-
-
 	    	
 	    }
 
@@ -93,8 +90,20 @@
 	    //我的购物车
 	    public function user_shopcar()
 	    {
-	    	$this->assign('list', self::$model->shop_car());
-	    	return $this->fetch('./shoplist');
+	    	if($_POST ){
+	    		//dump($_POST);die;
+	    		if ( Db::table('flower_user_shopcar')->where('id', $_POST['id'])->setField('is_deleted','1') )
+	    		{
+	    			echo json_encode(['code'=>400,'msg'=>'删除成功！']);
+	    		}else {
+	    			echo json_encode(['code'=>500,'msg'=>'error']);
+	    		}
+
+	    	}else{
+	    		$this->assign('list', self::$model->shop_car());
+	    		return $this->fetch('./shoplist');
+	    	}
+
 	    }
 
 	    //收花日历   修改订单
@@ -121,7 +130,7 @@
 	    }
 
 
-
+	    //UPDATE flower_user_shopcar set is_deleted=0 where id<>0
 	
 
 

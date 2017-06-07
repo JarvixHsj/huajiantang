@@ -50,11 +50,13 @@
 		public  function shop_car()
 		{
 
-
-			$data = db('user_shopcar')
-					->alias('s')
-					->join('product p','s.product_id = p.id')
-					->select();
+			$data = $this->query("select s.*,
+					p.id as product_id,
+					p.name as name,
+					p.intro as intro
+					from flower_user_shopcar as s
+					left join flower_product as p
+					on s.product_id=p.id where s.user_id=1 and s.is_deleted=0");
 			
 			foreach($data as $k=>$val) {
 				if($val['product_id'] ==1) $data[$k]['product_pic'] = '/qwqw';
