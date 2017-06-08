@@ -78,16 +78,13 @@
           </div>
          </li>
 <?php endforeach;?>
-
-       
-
        </ul>
     </div>
   </div>
   <div class="bottom-nav">
     <img class="bottom-nav-img select all-select" src="__STATIC__/user/img/icon6.png"></img>
     <p class="bottom-nav-p">全选</p>
-    <div class="account">结算<span class="account-text"></span></div>
+    <div class="account" onclick="set_cart()">结算<span class="account-text"></span></div>
     <div class="bottom-nav-total">
      <p class="total-text">合计:￥<span class="bottom-nav-total-num"></span></p>
      <p class="bottom-nav-total-freight">不含运费</p>
@@ -270,12 +267,10 @@
      });
 
      $(".remove").click(function(){
-
         var $this = $(this);
        var index = $(this).parent().index();
         var id  = $(this).attr('title');
 
-  
        $.ajax({
          type: "POST",
          url: "{:url('index/user_shopcar')}",
@@ -291,16 +286,8 @@
                 content=content-value;
                 len();
           }
-          
-           //alert( "Data Saved: " + msg ); 
-         
          }
       });
-      
-
-     
-
-    
      });
     
     function len(){
@@ -326,6 +313,37 @@
      };
     };
 
+
+
+
   });
-   
+
+    function set_cart()
+    {
+        var arr=[];
+        var parent = $(document).find('ul').children();
+        var node = parent.find("img[class='icon-img select select-one']");
+
+        $.each( $(node), function(i, n){
+           // console.log(i);
+           // console.log($(n).attr('src'));
+           // console.log(parent.eq(i).attr('attr'));
+            if($(n).attr('src') === '__STATIC__/user/img/icon6.png'){
+                arr[i] = parent.eq(i).attr('attr');
+            }
+        });
+
+        for(var i = 0 ;i<arr.length;i++)
+        {
+            if(arr[i] == "" || typeof(arr[i]) == "undefined")
+            {
+                arr.splice(i,1);
+                i= i-1;
+            }
+
+        }
+        console.log(arr);
+        console.log(arr.length);
+        console.log(JSON.stringify(arr));
+    }
 </script>
