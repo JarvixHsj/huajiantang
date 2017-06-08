@@ -106,6 +106,20 @@
 
 	    }
 
+		//
+		public function edit_shopcar_num()
+		{
+			if($_POST)
+			{
+				if ( Db::table('flower_user_shopcar')->where('id', $_POST['id'])->setField('produce_num',$_POST['num']) )
+				{
+					echo json_encode(['code'=>400,'msg'=>'成功！']);
+				}else {
+					echo json_encode(['code'=>500,'msg'=>'error']);
+				}
+			}
+		}
+
 	    //收花日历   修改订单
 	    public function user_amend()
 	    {

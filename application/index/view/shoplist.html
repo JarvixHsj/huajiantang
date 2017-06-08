@@ -49,8 +49,8 @@
     </div>
     <div class="container">
        <div class="container-header">
-             <p class="p1"><img src="__STATIC__/user/img/icon6.png" class="select all-select"></img></p>
-             <p class="p1 p2"><img src="__STATIC__/user/img/store.png"></img></p>
+             <p class="p1"><img src="__STATIC__/user/img/icon6.png" class="select all-select"></p>
+             <p class="p1 p2"><img src="__STATIC__/user/img/store.png"></p>
              <p class="p1 p3">花点时间的店</p>
              <div class="compile">编辑</div>
        </div>
@@ -59,19 +59,19 @@
        <ul class="container-list">
 
 <?php foreach($list as $k=>$v):?>
-         <li class="container-list-li">
+         <li class="container-list-li" attr="<?=$v['id']?>">
           <div class="add-order">
             <div class="add order-add">+</div>
             <div class="add order-num"><?=$v['produce_num']?></div>
             <div class="add order-reduce">-</div>
           </div>
           <div class="remove" title="<?=$v['id']?>">删除</div>
-          <img class="icon-img select select-one" src="__STATIC__/user/img/icon6.png"></img>
-          <div class="item-img"><img src="__STATIC__/user/img/1.jpg"></img></div>
+          <img class="icon-img select select-one" src="__STATIC__/user/img/icon6.png">
+          <div class="item-img"><img src="__STATIC__/user/img/1.jpg"></div>
           <div class="item-container">
            <p class="item-p"><?=$v['name']?></p>
            <p class="item-p"><?=$v['intro']?></p>
-           <p class="item-p">周一收花,季度12束+1张祝福卡服务</p>
+           <p class="item-p"><?=$v['accept_time']?>,<?=$v['spec']?></p>
            <p class="item-p item-account">￥<span class="item-num2"><?=$v['product_price']?></span>
 
            <span class="item-num">x<span><?=$v['produce_num']?></span></span></p>
@@ -213,22 +213,59 @@
      };
 
      $(".order-add").click(function(){
+
+         var $this = $(this);
+
        var aindex=$(this).parent().parent().index();
-       
+        //console.log(a);
+         var id = $(this).parent().parent().attr('attr');
+           // console.log(a[aindex]++);
+         //console.log(count);
            a[aindex]++;
            count++;
-           $(this).next().html(a[aindex]);
+         $.ajax({
+             type: "POST",
+             url: "{:url('index/edit_shopcar_num')}",
+             data: "id="+id+"&num="+a[aindex],
+             success: function(msg){
+                 var data = JSON.parse(msg);
+                 //console.log(data.code);
+                 if( data.code == 400){
+                     $this.next().html(a[aindex]);
+                 }
+                 //alert( "Data Saved: " + msg );
+             }
+         });
+
+           //$(this).next().html(a[aindex]);
 
      });
 
      $(".order-reduce").click(function(){
+         var $this = $(this);
+         var id = $(this).parent().parent().attr('attr');
        var bindex=$(this).parent().parent().index();
+
          if(a[bindex]==1){
            $(this).prev().html(1);
+             return;
          }else{
             count--;
             a[bindex]--;
-            $(this).prev().html(a[bindex]);
+             $.ajax({
+                 type: "POST",
+                 url: "{:url('index/edit_shopcar_num')}",
+                 data: "id="+id+"&num="+a[bindex],
+                 success: function(msg){
+                     var data = JSON.parse(msg);
+                     //console.log(data.code);
+                     if( data.code == 400){
+                         $this.prev().html(a[bindex]);
+                     }
+                     //alert( "Data Saved: " + msg );
+                 }
+             });
+
          };
      });
 
