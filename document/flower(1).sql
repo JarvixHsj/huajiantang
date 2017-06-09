@@ -21,11 +21,11 @@ CREATE TABLE IF NOT EXISTS `flower_user`(
 	`reg_time` int(11) not null,
 	`integral`  int(11) default null comment '积分',
 	`phone_call_people` varchar(255) not null comment '联系人',
-	`receive_address`char(25) default null comment '收货地址',
+	-- `receive_address`char(25) default null comment '收货地址',
 	`receive_phone_call` char(25) default null comment '收货人手机',
 	`area` varchar(255) default null comment '地区',
 	`detail_address` varchar(255) default null comment '详细地址',
-	`email_code` int(6) default null  comment '邮编'
+	-- `email_code` int(6) default null  comment '邮编'
 )engine=InnoDB DEFAULT CHARSET=utf8;
 
 -- 订单表

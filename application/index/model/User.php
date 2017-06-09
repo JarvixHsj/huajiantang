@@ -49,7 +49,27 @@
 
 		public  function shop_car()
 		{
-			return db("user_shopcar")->where("user_id",self::$user_id)->select();
+
+			$data = $this->query("select s.*,
+					p.id as product_id,
+					p.name as name,
+					p.intro as intro
+					from flower_user_shopcar as s
+					left join flower_product as p
+					on s.product_id=p.id where s.user_id=1 and s.is_deleted=0");
+			
+			foreach($data as $k=>$val) {
+				if($val['product_id'] ==1) 		$data[$k]['product_pic'] = '/qwqw';
+				if($val['product_id'] ==2) 		$data[$k]['product_pic'] = '/123123';
+
+				if($val['accept_time'] == 0) 	$data[$k]['accept_time'] = '周一收花';
+				if($val['accept_time'] == 1) 	$data[$k]['accept_time'] = '周日收花';
+				if($val['spec'] ==1)         	$data[$k]['spec'] = '月度4束';
+				if($val['spec'] ==4 )			$data[$k]['spec'] = '月度12束+1祝福卡';
+
+			}
+
+			return $data;
 		}
 
 

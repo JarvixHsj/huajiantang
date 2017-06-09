@@ -311,6 +311,7 @@
      $("#coupon").click(function(){
         $(".bac").show();
         $(".bottom-container-btn").html("下一步");
+        // $(".bottom-container-btn").attr("id","downOrder");
         $(".bottom-container").show();
         $(".bottom-container").animate({bottom:"0px"},300);
         $(".bac").click(function(){
@@ -346,51 +347,69 @@
      });
 
     $(".bottom-container-btn").click(function(){
-        // $('#form').submit();
         var accept_time = $("input[name='accept_time']:checked").val() 
         var spec = $("select[name=spec]").val();
         var area = $("select[name=area]").val();
         var num = $("input[name='num']").val();
         var project_id = $("input[name='project_id']").val();
-        
-        $.ajax({
-           type: "POST",
-           url: "{:Url('Index/join_shopcar')}",
-           data: "accept_time="+accept_time+"&spec="+spec+"&area="+area+"&num="+num+"&project_id="+project_id,
-           success: function(msg){
-                if(msg.status == 1){
-                    $(".popups").html("已添加到购物车");
-                    $(".popups").show();
-                    setTimeout(function(){
-                        $(".popups").hide();
+
+        var post_data = "accept_time="+accept_time+"&spec="+spec+"&area="+area+"&num="+num+"&project_id="+project_id;
+
+        var wordHtml = $(this).html();
+        if(wordHtml == '加入购物车'){
+            // alert('加入购物车了');
+            $.ajax({
+               type: "POST",
+               url: "{:Url('Index/join_shopcar')}",
+               data: post_data,
+               success: function(msg){
+                    if(msg.status == 1){
+                        $(".popups").html("已添加到购物车");
+                        $(".popups").show();
+                        setTimeout(function(){
+                            $(".popups").hide();
+                            window.location.reload();
+                        },1300);
+                    }else{
+                        alert(msg.message);
+                        window.localtion.href= msg.url;
+    //                    $(".popups").show();
+    //                    setTimeout(function(){
+    //                        $(".popups").hide();
+    //                    },2000);
+                    }
+               }
+            });
+
+        }else{
+            // alert('下一步');
+            $.ajax({
+                type: "POST",
+                url: "{:Url('Index/next_orders')}",
+                data: post_data,
+                success: function(msg){
+                    // console.log(msg);
+                    // return false;
+                    if(msg.status == 1){
+                        // $(".popups").html("已添加到购物车");
+                        // $(".popups").show();
+                        // setTimeout(function(){
+                        //     $(".popups").hide();
+                            window.location.href = msg.url;
+                        // },1300);
+                    }else{
+                        alert(msg.message);
                         window.location.reload();
-                    },1300);
-                }else{
-                    alert(msg.message);
-                    window.localtion.href= msg.url;
-//                    $(".popups").show();
-//                    setTimeout(function(){
-//                        $(".popups").hide();
-//                    },2000);
+    //                    $(".popups").show();
+    //                    setTimeout(function(){
+    //                        $(".popups").hide();
+    //                    },2000);
+                    }
                 }
-           }
-        });
-//
-//        if(valueTime==null||valueStandard==null||valueSite==null){
-//          $(".popups").show();
-//          setTimeout(function(){
-//             $(".popups").hide();
-//          },2000);
-//        }else{
-//          $(".popups").html("已添加到购物车");
-//          $(".popups").show();
-//           setTimeout(function(){
-//             $(".popups").hide();
-//          },2000);
-//
-//        };
+            });
 
-
+        }
+        return false;
     });
 
     layui.use('flow', function(){

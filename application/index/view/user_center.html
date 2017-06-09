@@ -17,7 +17,7 @@
    .order-list li{width:20%;height:100%;float: left;}
    .order-list li img{width:26px;height:26px;margin-top:15px;}
    .all-order{width:100%;height:40px;background:#ffffff;text-align: left;border-bottom:1px solid #e5e5e5;}
-   .all-order-text{margin-left:5px;line-height:40px;float: left;}
+   .all-order-text{margin-left:5px;line-height:40px;float: left;font-size:12px; }
    .all-order-icon{float: left;width:20px;height:26px;margin-left:15px;background: url('__STATIC__/user/img/icon13.png');background-position:0px 0px;background-size:20px;height:26px;background-repeat: no-repeat;margin-top:9px;}
    .icon{float: left;width:20px;height:26px;margin-left:15px;margin-top:6px;}
    .icon img{width:100%;height:100%;}
@@ -97,14 +97,14 @@
        <img class="all-order-icon2" src="__STATIC__/user/img/icon1.png"></img>
       </a>
     </div>
-     <div class="all-order">
+     <div class="all-order" onclick="window.location.href='{:url(\'index/set_account\')}'">
       <a href="javascript:;">
-       <div class="all-order-icon account"></div>
+       <div class="all-order-icon account" ></div>
        <p class="all-order-text">账号管理</p>
        <img class="all-order-icon2" src="__STATIC__/user/img/icon1.png"></img>
       </a>
      </div>
-     <div class="all-order" onclick="window.location.href='{:url(\'index/address\')}'">
+     <div class="all-order" onclick="window.location.href='{:url(\'index/set_address\')}'">
       <a href="javascript:;">
        <div class="all-order-icon account"></div>
        <p class="all-order-text">修改收货地址</p>

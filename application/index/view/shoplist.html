@@ -49,52 +49,42 @@
     </div>
     <div class="container">
        <div class="container-header">
-             <p class="p1"><img src="__STATIC__/user/img/icon6.png" class="select all-select"></img></p>
-             <p class="p1 p2"><img src="__STATIC__/user/img/store.png"></img></p>
+             <p class="p1"><img src="__STATIC__/user/img/icon6.png" class="select all-select"></p>
+             <p class="p1 p2"><img src="__STATIC__/user/img/store.png"></p>
              <p class="p1 p3">花点时间的店</p>
              <div class="compile">编辑</div>
        </div>
-       <ul class="container-list">
-         <li class="container-list-li">
-          <div class="add-order">
-            <div class="add order-add">+</div>
-            <div class="add order-num">1</div>
-            <div class="add order-reduce">-</div>
-          </div>
-          <div class="remove">删除</div>
-          <img class="icon-img select select-one" src="__STATIC__/user/img/icon6.png"></img>
-          <div class="item-img"><img src="__STATIC__/user/img/1.jpg"></img></div>
-          <div class="item-container">
-           <p class="item-p">主题花系列|DIY版,月度，季度套</p>
-           <p class="item-p">餐,每周一束主题花材</p>
-           <p class="item-p">周一收花,季度12束+1张祝福卡服务</p>
-           <p class="item-p item-account">￥<span class="item-num2">1333.0</span><span class="item-num">x<span>1</span></span></p>
-          </div>
-         </li>
-         <li class="container-list-li">
-          <div class="add-order">
-            <div class="add order-add">+</div>
-            <div class="add order-num">1</div>
-            <div class="add order-reduce">-</div>
-          </div>
-          <div class="remove">删除</div>
-          <img class="icon-img select select-one" src="__STATIC__/user/img/icon6.png"></img>
-          <div class="item-img"><img src="__STATIC__/user/img/1.jpg"></img></div>
-          <div class="item-container">
-           <p class="item-p">主题花系列|DIY版,月度，季度套</p>
-           <p class="item-p">餐,每周一束主题花材</p>
-           <p class="item-p">周一收花,季度12束+1张祝福卡服务</p>
-           <p class="item-p item-account">￥<span class="item-num2">1333.0</span><span class="item-num">x<span>1</span></span></p>
-          </div>
-         </li>
 
+
+       <ul class="container-list">
+
+<?php foreach($list as $k=>$v):?>
+         <li class="container-list-li" attr="<?=$v['id']?>">
+          <div class="add-order">
+            <div class="add order-add">+</div>
+            <div class="add order-num"><?=$v['produce_num']?></div>
+            <div class="add order-reduce">-</div>
+          </div>
+          <div class="remove" title="<?=$v['id']?>">删除</div>
+          <img class="icon-img select select-one" src="__STATIC__/user/img/icon6.png">
+          <div class="item-img"><img src="__STATIC__/user/img/1.jpg"></div>
+          <div class="item-container">
+           <p class="item-p"><?=$v['name']?></p>
+           <p class="item-p"><?=$v['intro']?></p>
+           <p class="item-p"><?=$v['accept_time']?>,<?=$v['spec']?></p>
+           <p class="item-p item-account">￥<span class="item-num2"><?=$v['product_price']?></span>
+
+           <span class="item-num">x<span><?=$v['produce_num']?></span></span></p>
+          </div>
+         </li>
+<?php endforeach;?>
        </ul>
     </div>
   </div>
   <div class="bottom-nav">
     <img class="bottom-nav-img select all-select" src="__STATIC__/user/img/icon6.png"></img>
     <p class="bottom-nav-p">全选</p>
-    <div class="account">结算<span class="account-text"></span></div>
+    <div class="account" onclick="set_cart()">结算<span class="account-text"></span></div>
     <div class="bottom-nav-total">
      <p class="total-text">合计:￥<span class="bottom-nav-total-num"></span></p>
      <p class="bottom-nav-total-freight">不含运费</p>
@@ -220,32 +210,84 @@
      };
 
      $(".order-add").click(function(){
+
+         var $this = $(this);
+
        var aindex=$(this).parent().parent().index();
-       
+        //console.log(a);
+         var id = $(this).parent().parent().attr('attr');
+           // console.log(a[aindex]++);
+         //console.log(count);
            a[aindex]++;
            count++;
-           $(this).next().html(a[aindex]);
+         $.ajax({
+             type: "POST",
+             url: "{:url('index/edit_shopcar_num')}",
+             data: "id="+id+"&num="+a[aindex],
+             success: function(msg){
+                 var data = JSON.parse(msg);
+                 //console.log(data.code);
+                 if( data.code == 400){
+                     $this.next().html(a[aindex]);
+                 }
+                 //alert( "Data Saved: " + msg );
+             }
+         });
+
+           //$(this).next().html(a[aindex]);
 
      });
 
      $(".order-reduce").click(function(){
+         var $this = $(this);
+         var id = $(this).parent().parent().attr('attr');
        var bindex=$(this).parent().parent().index();
+
          if(a[bindex]==1){
            $(this).prev().html(1);
+             return;
          }else{
             count--;
             a[bindex]--;
-            $(this).prev().html(a[bindex]);
+             $.ajax({
+                 type: "POST",
+                 url: "{:url('index/edit_shopcar_num')}",
+                 data: "id="+id+"&num="+a[bindex],
+                 success: function(msg){
+                     var data = JSON.parse(msg);
+                     //console.log(data.code);
+                     if( data.code == 400){
+                         $this.prev().html(a[bindex]);
+                     }
+                     //alert( "Data Saved: " + msg );
+                 }
+             });
+
          };
      });
 
      $(".remove").click(function(){
-       var index=$(this).parent().index();
-       $(this).parent().remove();
-       var value=a[index]*parseInt($(this).parent().find('div:last').find(".item-num2").html());
-       count=count-a[index];
-       content=content-value;
-       len();
+        var $this = $(this);
+       var index = $(this).parent().index();
+        var id  = $(this).attr('title');
+
+       $.ajax({
+         type: "POST",
+         url: "{:url('index/user_shopcar')}",
+         data: "id="+id,
+         success: function(msg){
+
+          var data = JSON.parse(msg);
+          console.log(data.code);
+          if( data.code == 400){
+              $this.parent().fadeOut();
+                var value=a[index]*parseInt($this.parent().find('div:last').find(".item-num2").html());
+                count=count-a[index];
+                content=content-value;
+                len();
+          }
+         }
+      });
      });
     
     function len(){
@@ -271,6 +313,37 @@
      };
     };
 
+
+
+
   });
-   
+
+    function set_cart()
+    {
+        var arr=[];
+        var parent = $(document).find('ul').children();
+        var node = parent.find("img[class='icon-img select select-one']");
+
+        $.each( $(node), function(i, n){
+           // console.log(i);
+           // console.log($(n).attr('src'));
+           // console.log(parent.eq(i).attr('attr'));
+            if($(n).attr('src') === '__STATIC__/user/img/icon6.png'){
+                arr[i] = parent.eq(i).attr('attr');
+            }
+        });
+
+        for(var i = 0 ;i<arr.length;i++)
+        {
+            if(arr[i] == "" || typeof(arr[i]) == "undefined")
+            {
+                arr.splice(i,1);
+                i= i-1;
+            }
+
+        }
+        console.log(arr);
+        console.log(arr.length);
+        console.log(JSON.stringify(arr));
+    }
 </script>
