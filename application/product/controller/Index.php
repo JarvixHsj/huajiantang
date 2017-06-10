@@ -207,11 +207,11 @@ class Index extends Controller
         $insertData['product_num'] = $userCar['product_num'];     //项目金额
         $insertData['total_price'] = $combo_product['price'] * $userCar['product_num']; //总价格
         $insertData['express_id'] = 0; //总价格
+        $insertData['order_sn'] = "HJT".date('YmdHis',time()).mt_rand(0,9).substr(md5(uniqid()),2,3).mt_rand(0,9);
         if($notice) $insertData['notice'] = 1;
 
         if($message) $insertData['message'] = $message;
 
-        // var_dump($insertData);die;
         $insert_id = Db::name('user_order')->insertGetId($insertData);
         if($insert_id){
             $this->success('下单成功');
