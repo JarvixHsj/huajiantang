@@ -115,15 +115,15 @@
 		$(".save-p2").click(function(){
 
 
-      var province = $('#province1').val(); //省
-      var city = $('#city1').val();         //市
-      var district = $('#district1').val(); //区
+   //    var province = $('#province1').val(); //省
+   //    var city = $('#city1').val();         //市
+   //    var district = $('#district1').val(); //区
 
-			var name=$(".name").val();
-      var receive_phone_call=$(".receive_phone_call").val();
-			var phone_call_people=$(".phone_call_people").val();
-			// var area=$(".area").val();
-			var textarea=$(".textarea").val();
+			// var name=$(".name").val();
+   //    var receive_phone_call=$(".receive_phone_call").val();
+			// var phone_call_people=$(".phone_call_people").val();
+			// // var area=$(".area").val();
+			// var textarea=$(".textarea").val();
 			// var mail=$(".mail").val();
 
             // checkMobile(receive_phone_call);
@@ -158,16 +158,16 @@ function _data(object,string)
               $("input[name='city']").val($('#city1').val());
               $("input[name='district']").val($('#district1').val());
 
-              var name=$(".name").val();
+              // var name=$(".name").val();
               var receive_phone_call=$(".receive_phone_call").val();
-              var phone_call_people=$(".phone_call_people").val();
+              // var phone_call_people=$(".phone_call_people").val();
               // var area=$(".area").val();
-              var textarea=$(".textarea").val();
+              // var textarea=$(".textarea").val();
               // var mail=$(".mail").val();
               var re = /^1\d{10}$/
                if (re.test(receive_phone_call)) {
-                   clearInterval(timer);
-                   code();
+                   // clearInterval(timer);
+                   // code();
                } else {
                     $("#put1").addClass('put2');
                     $("#put1").val("请输入正确手机号码");
@@ -180,13 +180,13 @@ function _data(object,string)
       }
     }
 
-    function checkMobile(str) {
-         if (re.test(str)) {
-             clearInterval(timer);
-             code();
-         } else {
-              $("#put1").addClass('put2');
-              $("#put1").val("请输入正确手机号码"); 
-         };
-     };
+    // function checkMobile(str) {
+    //      if (re.test(str)) {
+    //          clearInterval(timer);
+    //          code();
+    //      } else {
+    //           $("#put1").addClass('put2');
+    //           $("#put1").val("请输入正确手机号码"); 
+    //      };
+    //  };
 </script>

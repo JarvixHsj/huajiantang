@@ -79,82 +79,86 @@
         <a href="address.html"><img src="__PRODUCT_IMG__/icon1.png"></img></a>
       </div>
     </div>
-    <ul class="container">
-      <li style="height:50px;text-align:left;">
-        <img class="icon-store" src="__PRODUCT_IMG__/store.png"></img>
-        <span class="store-name">花点时间的店</span>
-      </li>
-      <li class="container-item">
-        <div class="container-item-img">
-          <img src="__PRODUCT_IMG__/item.jpg"></img>
-        </div>
-        <div class="container-item-text">
-          Nature自然系列 | 单品版｜花点时间热卖中99元/4束，新用户赠花瓶。每周一束单品，品种随机。
 
-         单月（4束） 不加购毛毡包, 周六收花, 京津冀江浙沪皖粤昆明成都重庆
-                
+    <form action="{:url('index/submitOrder')}" id="post_data" method="post">
+
+        <ul class="container">
+          <li style="height:50px;text-align:left;">
+            <img class="icon-store" src="__PRODUCT_IMG__/store.png"></img>
+            <span class="store-name">花间堂</span>
+          </li>
+          <li class="container-item">
+            <div class="container-item-img">
+              <img src="__PRODUCT_IMG__/item.jpg"></img>
+            </div>
+            <div class="container-item-text">
+              {$data.user_shopcar.name}新用户赠花瓶。每周一束单品，品种随机。
+
+             单月（4束） 不加购毛毡包, 周六收花, 京津冀江浙沪皖粤昆明成都重庆
+                    
+            </div>
+            <div class="container-item-num">
+              <p style="margin-top:10px;">￥<span>{$data.user_shopcar.price}.00</span></p>
+              <p style="margin-top:30px;">{$data.user_shopcar.product_num}<span></span></p>
+            </div>
+          </li>
+          <li class="container-style">
+            <p class="p1">配送方式</p>
+            <div class="add-icon2" style="margin-top:19px;margin-right:5px;">
+              <a href=""><img src="__PRODUCT_IMG__/icon1.png"></img></a>
+            </div>
+            <div class="container-text">
+              <p>￥<span>0.00</span></p>
+              <p>指定时间</p>
+            </div>
+          </li>
+          <li class="container-style put">
+             <p class="p1">买家留言:</p>
+             <input type="text" placeholder="点击给商家留言" name="message" class="message" onfocus="this.placeholder=''" onblur="this.placeholder='点击给商家留言'"></input>
+          </li>
+          <li class="container-style" style="height:50px;">
+           <p class="p1">合计:</p>
+           <p class="p2">￥<span>{$data.user_shopcar.product_price}.00</span></p>
+          </li>
+        </ul>
+        <ul class="container coupom">
+          <li class="container-style">
+             <p class="p1">优惠</p>
+             <div class="add-icon2 coupon" style="margin-right:5px;margin-top:16px;">
+               <img src="__PRODUCT_IMG__/icon1.png"></img>
+             </div>
+             <p class="p3 coupon">使用优惠券</p>
+          </li>
+          <li class="container-style" style="margin-top:10px;">
+             <p class="p1">短信通知收件人</p>
+             <div class="ch">
+               <label><input class="mui-switch" name="notice" type="checkbox" value="1" checked="checked"> </label>
+             </div>
+          </li>
+          <li class="container-style" style="height:40px;margin-top:10px;border:none;">
+            <p class="p1">商品金额</p>
+            <p class="p3" style="line-height:40px;margin-right:10px;">￥<span>99.00</span></p>
+          </li>
+          <li class="container-style" style="height:40px;">
+            <p class="p1">运费</p>
+            <p class="p3" style="line-height:40px;margin-right:10px;"> +&nbsp￥<span>0.00</span></p>
+          </li>
+        </ul>
+      </div>
+      <div class="nav">
+        <div class="nav-submit" onclick="_data(this)">提交订单</div>
+        <p class="p3">合计:<span class="nav-num">￥{$data.user_shopcar.product_price}.00</span></p>
+      </div>
+      <div class="select">
+        <img class="select-icon" src="__PRODUCT_IMG__/icon5.png"></img>
+        <p class="select-p">选择优惠</p>
+        <div class="select-container">
+          <input type="text" placeholder="输入优惠码" class="code" onfocus="this.placeholder=''" onblur="this.placeholder='输入优惠码' "></input>
+          <div class="exchange">兑换</div>
         </div>
-        <div class="container-item-num">
-          <p style="margin-top:10px;">￥<span>99.00</span></p>
-          <p style="margin-top:30px;">x<span>1</span></p>
-        </div>
-      </li>
-      <li class="container-style">
-        <p class="p1">配送方式</p>
-        <div class="add-icon2" style="margin-top:19px;margin-right:5px;">
-          <a href=""><img src="__PRODUCT_IMG__/icon1.png"></img></a>
-        </div>
-        <div class="container-text">
-          <p>￥<span>0.00</span></p>
-          <p>快递发货</p>
-        </div>
-      </li>
-      <li class="container-style put">
-         <p class="p1">买家留言:</p>
-         <input type="text" placeholder="点击给商家留言" class="message" onfocus="this.placeholder=''" onblur="this.placeholder='点击给商家留言' "></input>
-      </li>
-      <li class="container-style" style="height:50px;">
-       <p class="p1">合计:</p>
-       <p class="p2">￥<span>99.00</span></p>
-      </li>
-    </ul>
-    <ul class="container coupom">
-      <li class="container-style">
-         <p class="p1">优惠</p>
-         <div class="add-icon2 coupon" style="margin-right:5px;margin-top:16px;">
-           <img src="__PRODUCT_IMG__/icon1.png"></img>
-         </div>
-         <p class="p3 coupon">使用优惠券</p>
-      </li>
-      <li class="container-style" style="margin-top:10px;">
-         <p class="p1">短信通知收件人</p>
-         <div class="ch">
-           <label><input class="mui-switch" type="checkbox" value="" checked="checked"> </label>
-         </div>
-      </li>
-      <li class="container-style" style="height:40px;margin-top:10px;border:none;">
-        <p class="p1">商品金额</p>
-        <p class="p3" style="line-height:40px;margin-right:10px;">￥<span>99.00</span></p>
-      </li>
-      <li class="container-style" style="height:40px;">
-        <p class="p1">运费</p>
-        <p class="p3" style="line-height:40px;margin-right:10px;"> +&nbsp￥<span>0.00</span></p>
-      </li>
-    </ul>
-  </div>
-  <div class="nav">
-    <div class="nav-submit">提交订单</div>
-    <p class="p3">合计:<span class="nav-num">￥99.00</span></p>
-  </div>
-  <div class="select">
-    <img class="select-icon" src="__PRODUCT_IMG__/icon5.png"></img>
-    <p class="select-p">选择优惠</p>
-    <div class="select-container">
-      <input type="text" placeholder="输入优惠码" class="code" onfocus="this.placeholder=''" onblur="this.placeholder='输入优惠码' "></input>
-      <div class="exchange">兑换</div>
-    </div>
-    <button class="btn">确定</button>
-  </div>
+        <button class="btn">确定</button>
+      </div>
+  </form>
  </body>
 </html>
 <script>
@@ -191,4 +195,38 @@
 
 
   });
+
+  function _data(object,string) 
+    {
+      // switch(string) {
+      //     case 'cancel':
+      //         //document.getElementById('post_data').reset();
+      //        window.location.href = "{:url('index/index')}";
+      //       break;
+      //     case 'save':
+              // $("input[name='province']").val($('#province1').val());
+              // $("input[name='city']").val($('#city1').val());
+              // $("input[name='district']").val($('#district1').val());
+
+              // // var name=$(".name").val();
+              // var receive_phone_call=$(".receive_phone_call").val();
+              // // var phone_call_people=$(".phone_call_people").val();
+              // // var area=$(".area").val();
+              // // var textarea=$(".textarea").val();
+              // // var mail=$(".mail").val();
+              // var re = /^1\d{10}$/
+              //  if (re.test(receive_phone_call)) {
+              //      // clearInterval(timer);
+              //      // code();
+              //  } else {
+              //       $("#put1").addClass('put2');
+              //       $("#put1").val("请输入正确手机号码");
+              //       return false; 
+              //  };
+                    // checkMobile(receive_phone_call);
+
+              document.getElementById('post_data').submit();
+            // break;
+      // }
+    }
 </script>
