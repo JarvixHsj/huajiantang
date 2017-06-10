@@ -1,4 +1,6 @@
-<!doctype html>
+<?php dump($_SESSION);?>
+
+<!Doctype html>
 <html lang="en">
  <head>
   <meta charset="UTF-8">
@@ -6,6 +8,7 @@
   <link rel="shortcut icon" href="https://b.yzcdn.cn/v2/image/yz_fc.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
   <script type="text/javascript" src="__STATIC__/user/lib/jquery.js"></script>
+     <script type="text/javascript" src="__STATIC__/user/layui/layui.js"></script>
   <link rel="stylesheet" type="text/css" href="__STATIC__/user/css/style.css" />
   <style>
   .header{width:100%;height:50px;background:#ffffff;margin-bottom:10px;}
@@ -42,11 +45,16 @@
  </head>
  <body>
   <div class="blue">
-  	<div class="header">
-      <img src="__STATIC__/user/img/icon5.png" id="header-img"></img>
-      <p class="header-text1">绑定手机号可保存购物车中所有商品</p>
-      <p class="header-text2">立即绑定</p>
-    </div>
+
+    <?php if(! session('user_info.phone')):?>
+        <div class="header">
+          <img src="__STATIC__/user/img/icon5.png" id="header-img">
+          <p class="header-text1">绑定手机号可保存购物车中所有商品</p>
+          <p class="header-text2">立即绑定</p>
+        </div>
+    <?php endif;?>
+
+
     <div class="container">
        <div class="container-header">
              <p class="p1"><img src="__STATIC__/user/img/icon6.png" class="select all-select"></p>
@@ -57,7 +65,6 @@
 
 
        <ul class="container-list">
-
 <?php foreach($list as $k=>$v):?>
          <li class="container-list-li" attr="<?=$v['id']?>">
           <div class="add-order">
@@ -67,13 +74,12 @@
           </div>
           <div class="remove" title="<?=$v['id']?>">删除</div>
           <img class="icon-img select select-one" src="__STATIC__/user/img/icon6.png">
-          <div class="item-img"><img src="__STATIC__/user/img/1.jpg"></div>
+          <div class="item-img"><img src="<?=$v['product_pic']?>"></div>
           <div class="item-container">
-           <p class="item-p"><?=$v['name']?></p>
+           <p class="item-p"><?= substr($v['name'],0,22)?></p>
            <p class="item-p"><?=$v['intro']?></p>
            <p class="item-p"><?=$v['accept_time']?>,<?=$v['spec']?></p>
            <p class="item-p item-account">￥<span class="item-num2"><?=$v['product_price']?></span>
-
            <span class="item-num">x<span><?=$v['produce_num']?></span></span></p>
           </div>
          </li>
@@ -82,7 +88,7 @@
     </div>
   </div>
   <div class="bottom-nav">
-    <img class="bottom-nav-img select all-select" src="__STATIC__/user/img/icon6.png"></img>
+    <img class="bottom-nav-img select all-select" src="__STATIC__/user/img/icon6.png">
     <p class="bottom-nav-p">全选</p>
     <div class="account" onclick="set_cart()">结算<span class="account-text"></span></div>
     <div class="bottom-nav-total">
@@ -122,10 +128,13 @@
          $(".compile").html("编辑");
          $(".add-order").hide();
          $(".remove").hide();
+
          len();
          add();
          setdata();
          setoff=true;
+           //console.log(content);
+           //$(".bottom-nav-total-num").html(content);
        };
     });
 
@@ -139,7 +148,7 @@
         off[i]=true;
         a[i]=parseInt($(".container-list li").eq(i).find('div:last').find(".item-num").find('span').html());
         content+=a[i]*parseInt($(".container-list li").eq(i).find('div:last').find(".item-num2").html());
-        console.log(content);
+        //console.log(content);
         count+=a[i];
     };
     $(".bottom-nav-total-num").html(content);
@@ -266,6 +275,7 @@
          };
      });
 
+        //删除
      $(".remove").click(function(){
         var $this = $(this);
        var index = $(this).parent().index();
@@ -278,9 +288,9 @@
          success: function(msg){
 
           var data = JSON.parse(msg);
-          console.log(data.code);
+
           if( data.code == 400){
-              $this.parent().fadeOut();
+                $this.parent().remove();
                 var value=a[index]*parseInt($this.parent().find('div:last').find(".item-num2").html());
                 count=count-a[index];
                 content=content-value;
@@ -312,10 +322,6 @@
        
      };
     };
-
-
-
-
   });
 
     function set_cart()
@@ -342,8 +348,19 @@
             }
 
         }
-        console.log(arr);
-        console.log(arr.length);
-        console.log(JSON.stringify(arr));
+       // console.log(arr);
+       // console.log(arr.length);
+        var json={};
+
+        for(var i=0;i<arr.length;i++)
+        {
+            json[i]=arr[i];
+        }
+        //console.log(JSON.stringify(json));
+        $.post("{:url('index/test')}",json,
+                function(data){
+                    console.log(data.time);
+        }, "json");
+
     }
 </script>

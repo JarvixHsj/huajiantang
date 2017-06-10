@@ -1,7 +1,8 @@
 <?php
 
-	namespace app\controller;
+	namespace app\Index\controller;
 	use \think\Controller;
+	//use think\Request;
 
 	class Base extends Controller
 	{
@@ -12,7 +13,7 @@
 
 		public function _empty()
 		{
-			return $this->fetch('/index');
+			return $this->fetch('/user_center');
 		}
 
 		

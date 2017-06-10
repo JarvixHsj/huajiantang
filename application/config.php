@@ -272,7 +272,7 @@ return [
         '__PRODUCT_JS__' => ROOT_PATH . 'public/static/product/lib',
         '__PRODUCT_CSS__' => ROOT_PATH . 'public/static/product/css',
         '__PRODUCT_IMG__' => ROOT_PATH . 'public/static/product/img',
-    )
+    ),
     /* 模板相关配置 */
     // 'TMPL_PARSE_STRING' => array(
     //     '__STATIC__' => __ROOT__ . '/Public/static',
@@ -282,5 +282,10 @@ return [
     //     '__JS__'     => __ROOT__ . '/Public/' . MODULE_NAME . '/js',
     //     '__PUBLIC__'     => __ROOT__ . '/Public',
     // )
+
+    'wechat' => array(
+        'APP_ID'       => '',
+        'APP_SECRET'   => ''
+    ),
     
 ];

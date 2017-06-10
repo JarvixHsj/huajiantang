@@ -14,7 +14,9 @@
 		protected static function init()
 		{
 			parent::init();
-			if( !self::$user_id)  session('user_info.user_id') ? self::$user_id = session('user_info.user_id') : '2'; 
+			//if( !self::$user_id) {
+			session('user_id') ? self::$user_id = session('user_id') : self::$user_id=2;
+			//}
 		}
 
 
@@ -25,7 +27,15 @@
 
 		public  function find_user_info()
 		{
-			return $this->where("user_id", self::$user_id)->find();
+			$data = $this->where("user_id", self::$user_id)->find()->toArray();
+			//session('user_info',$data);
+
+			$arr = explode('-',$data['area']);
+			$data['province'] = $arr[0];
+			$data['city'] = $arr[1];
+			$data['district'] = $arr[2];
+			session('user_info',$data);
+			return $data;
 		}
 
 
@@ -49,18 +59,19 @@
 
 		public  function shop_car()
 		{
-
+			$user_id = self::$user_id;
 			$data = $this->query("select s.*,
 					p.id as product_id,
 					p.name as name,
+					p.price as price,
 					p.intro as intro
 					from flower_user_shopcar as s
 					left join flower_product as p
-					on s.product_id=p.id where s.user_id=1 and s.is_deleted=0");
+					on s.product_id=p.id where s.user_id=1 and s.is_deleted=0 order by s.id asc");
 			
 			foreach($data as $k=>$val) {
-				if($val['product_id'] ==1) 		$data[$k]['product_pic'] = '/qwqw';
-				if($val['product_id'] ==2) 		$data[$k]['product_pic'] = '/123123';
+				if($val['product_id'] ==1) 		$data[$k]['product_pic'] = '/static/product/img/1.jpg';
+				if($val['product_id'] ==2) 		$data[$k]['product_pic'] = '/static/product/img/2.jpg';
 
 				if($val['accept_time'] == 0) 	$data[$k]['accept_time'] = '周一收花';
 				if($val['accept_time'] == 1) 	$data[$k]['accept_time'] = '周日收花';
@@ -73,9 +84,9 @@
 		}
 
 
-		public function shop_car_count()
+		public function order_count()
 		{
-			return db('user_shopcar')->where("user_id", self::$user_id)->count();
+			return db('user_order')->where("user_id", self::$user_id)->count();
 		}
 
 

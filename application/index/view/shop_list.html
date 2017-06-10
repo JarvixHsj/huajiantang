@@ -1,0 +1,406 @@
+<!--<?php dump($_SESSION);?>-->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>购物车</title>
+    <link rel="shortcut icon" href="https://b.yzcdn.cn/v2/image/yz_fc.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <script type="text/javascript" src="__STATIC__/user/lib/jquery.js"></script>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/user/css/style.css" />
+    <style>
+        .header{width:100%;height:50px;background:#ffffff;margin-bottom:10px;}
+        .header-text1{font-size:15px;float: left;line-height:50px;margin-left:5px;}
+        .header-text2{float:right;font-size:15px;border-radius:5px;margin-right:6px;width:70px;height:30px;margin-top:10px;color:#f60;border:1px solid #f60;line-height:30px;}
+        .header img{float: left;width:15px;height:15px;margin-top:17px;margin-left:5px;}
+        .container{width:100%;background:#ffffff;font-size:14px;}
+        .container-header{width:100%;height:50px;line-height:50px;}
+        .compile{float:right;color:#38f;margin-right:10px;}
+        .p1{float: left;margin-left:10px;}
+        .p1 img{width:20px;height:20px;margin-top:15px;}
+        .p2{margin-left:15px;}
+        .p3{margin-left:5px;}
+        .bottom-nav{width:100%;height:50px;background:#ffffff;position: fixed;left:0px;bottom:0px;}
+        .account{width:90px;float:right;color:#ffffff;background:#FF4444;font-size:15px;line-height:50px;text-align:center;}
+        .bottom-nav-p{float: left;line-height:50px;margin-left:10px;}
+        .bottom-nav-img{width:20px; height:20px;float: left;margin-left:10px;margin-top:15px;}
+        .bottom-nav-total{float:right;margin-right:10px;font-size:14px;color:rgb(255, 102, 0);}
+        .bottom-nav-total-freight{color:#999;text-align: right;}
+        .container-list{width:100%;background:#ffffff;}
+        .container-list-li{width:100%;height:100px;text-align: left;float: left;background-color:#fafafa;margin-bottom:10px;position: relative;}
+        .icon-img{width:20px; height:20px;margin-top:40px;float: left;margin-left: 10px;}
+        .item-img{width:100px;height:100px;margin-left:10px;padding-top:5px;float: left;}
+        .item-img img{width:90px;height:90px;margin-top:5px;}
+        .item-container{height:100px;float: left;margin-left:10px;}
+        .item-p{font-size: 13px;line-height: 16px;color: #666;height:20px;}
+        .item-p:nth-of-type(1){margin-top:10px;}
+        .item-account{color:#f60;margin-top:10px;font-size:15px;}
+        .item-num{float:right;font-size: 12px;color: #666;}
+        .remove{width:60px;height:100%;color:#ffffff;background:#ff4343;position: absolute;right:0px;top:0px;z-index:200;line-height:100px;text-align: center;font-size:16px;display: none;}
+        .add-order{width:200px;height:40px;background:#fafafa;position: absolute;top:10px;left:150px;z-index:199;display: none;}
+        .add{width:35px;height:30px;border: 1px solid #999;color:#666;font-size:18px;text-align: center;line-height:30px;float: left;}
+    </style>
+</head>
+<body>
+<div class="blue">
+
+    <?php if(! session('user_info.phone')):?>
+    <div class="header">
+        <img src="__STATIC__/user/img/icon5.png" id="header-img">
+        <p class="header-text1">绑定手机号可保存购物车中所有商品</p>
+        <p class="header-text2">立即绑定</p>
+    </div>
+    <?php endif;?>
+
+
+    <div class="container">
+        <div class="container-header">
+            <p class="p1"><img src="__STATIC__/user/img/icon6.png" class="select all-select"></img></p>
+            <p class="p1 p2"><img src="__STATIC__/user/img/store.png"></img></p>
+            <p class="p1 p3">花点时间的店</p>
+            <div class="compile">编辑</div>
+        </div>
+        <ul class="container-list">
+
+            {foreach name="list" item="vo"}
+
+            <li class="container-list-li" attr="{$vo.id}">
+                <div class="add-order">
+                    <div class="add order-add">+</div>
+                    <div class="add order-num">{$vo.produce_num}</div>
+                    <div class="add order-reduce">-</div>
+                </div>
+                <div class="remove" title="{$vo.id}">删除</div>
+                <img class="icon-img select select-one" src="__STATIC__/user/img/icon6.png"></img>
+                <div class="item-img"><img src="{$vo.product_pic}"></img></div>
+                <div class="item-container">
+                    <p class="item-p">主题花系列|DIY版,月度，季度套</p>
+                    <p class="item-p">餐,每周一束主题花材</p>
+                    <p class="item-p">{$vo.accept_time},{$vo.spec}</p>
+                    <p class="item-p item-account">￥<span class="item-num2">{$vo.price}</span><span class="item-num">x<span>{$vo.produce_num}</span></span></p>
+                </div>
+            </li>
+            {/foreach}
+        </ul>
+    </div>
+</div>
+<div class="bottom-nav">
+    <img class="bottom-nav-img select all-select" src="__STATIC__/user/img/icon6.png"></img>
+    <p class="bottom-nav-p">全选</p>
+    <div class="account" onclick="set_cart()">结算<span class="account-text"></span></div>
+    <div class="bottom-nav-total">
+        <p class="total-text">合计:￥<span class="bottom-nav-total-num"></span></p>
+        <p class="bottom-nav-total-freight">不含运费</p>
+    </div>
+</div>
+
+</body>
+</html>
+<script>
+    $(function(){
+
+        var width=$(window).width();
+        // console.log(width);
+
+        var length=$(".container-list li").length;
+        var height=100*length+30+'px';
+        $(".container-list").css("height",height);
+
+        $("#header-img").click(function(){
+            $(".header").hide();
+        });
+
+        var setoff=true;
+        $(".compile").click(function(){
+            if(setoff){
+                if(length==0){
+                    $(".compile").html("编辑");
+                }else{
+                    $(".compile").html("完成");
+                    $(".add-order").show();
+                    $(".remove").show();
+                    function acount(){
+                        for(var i=0; i<length;i++){
+                            b[i]=a[i];
+                        };
+                    };
+                    acount();
+                    setoff=false;
+                };
+
+            }else{
+                $(".compile").html("编辑");
+                $(".add-order").hide();
+                $(".remove").hide();
+                console.log('length:'+length);
+                function acount(){
+                    var all=0;
+                    for(var i=0; i<length;i++){
+                        a[i]=b[i];
+                        all=all+a[i];
+                        console.log('a:'+a[i]);
+                    };
+                    console.log('all:'+all);
+                    count=all;
+                };
+                acount();
+                len();
+                add();
+                setdata();
+                setoff=true;
+            };
+        });
+
+
+
+        var a=[];
+        var b=[];
+        var content=0;
+        var count=0;
+        var off=[];
+
+
+        function calculate(length){
+            for(var i=0; i<length;i++){
+                off[i]=true;
+                a[i]=parseInt($(".container-list li").eq(i).find('div:last').find(".item-num").find('span').html());
+                b[i]=a[i];
+                content+=a[i]*parseInt($(".container-list li").eq(i).find('div:last').find(".item-num2").html());
+                count+=a[i];
+            };
+        };
+
+        function hide(length){
+            if(length==0){
+                $(".container-header").hide();
+                $(".container-list").hide();
+            };
+        };
+        hide(length);
+        calculate(length);
+
+        console.log(content);
+        console.log(count);
+        $(".bottom-nav-total-num").html(content);
+        $(".account-text").html('('+count+')');
+
+        var alloff=true;
+        $(".select-one").click(function(){
+            var index=$(this).parent().index();
+            var value=a[index]*parseInt($(this).parent().find('div:last').find(".item-num2").html());
+            if(off[index]){
+                count=count-a[index];
+                $(this).attr('src','__STATIC__/user/img/icon7.png');
+                content=content-value;
+                $(".bottom-nav-total-num").html(content);
+                $(".account-text").html('('+count+')');
+                if(content==0){
+                    $(".select").attr('src','__STATIC__/user/img/icon7.png');
+                    $(".account").css({"background":"#f1f1f1","color":"#999"});
+                    $(".bottom-nav-total").css("color","#999");
+                    $(".account-text").html('');
+                };
+                off[index]=false;
+            }else{
+                count=count+a[index];
+                $(this).attr('src','__STATIC__/user/img/icon6.png');
+                content=content+value;
+                $(".bottom-nav-total-num").html(content);
+                if(content>0){
+                    $(".all-select").attr('src','__STATIC__/user/img/icon6.png');
+                    $(".account").css({"background":"#FF4444","color":"#ffffff"});
+                    $(".bottom-nav-total").css("color","rgb(255, 102, 0)");
+                    $(".account-text").html('('+count+')');
+                };
+                off[index]=true;
+            };
+
+        });
+
+        $(".all-select").click(function(){
+            if(alloff){
+                $(".select").attr('src','__STATIC__/user/img/icon7.png');
+                $(".account").css({"background":"#f1f1f1","color":"#999"});
+                $(".bottom-nav-total-num").html(0);
+                $(".bottom-nav-total").css("color","#999");
+                $(".account-text").html('');
+                alloff=false;
+            }else{
+                $(".select").attr('src','__STATIC__/user/img/icon6.png');
+                $(".account").css({"background":"#FF4444","color":"#ffffff"});
+                add();
+                $(".bottom-nav-total").css("color","rgb(255, 102, 0)");
+                $(".account-text").html('('+count+')');
+                alloff=true;
+            };
+
+
+        });
+
+
+
+        function add(){
+            content=0;
+            for(var i=0; i<length;i++){
+                content+=a[i]*parseInt($(".container-list li").eq(i).find('div:last').find(".item-num2").html());
+
+            };
+
+            $(".bottom-nav-total-num").html(content);
+
+        };
+
+
+        //添加
+        $(".order-add").click(function(){
+
+
+            var $this = $(this);
+            var aindex=$(this).parent().parent().index();
+            var id = $(this).parent().parent().attr('attr');
+
+            b[aindex]++;
+
+            $.ajax({
+                type: "POST",
+                url: "{:url('index/edit_shopcar_num')}",
+                data: "id="+id+"&num="+b[aindex],
+                success: function(msg){
+                    var data = JSON.parse(msg);
+                    //console.log(data.code);
+                    if( data.code == 400){
+                        $this.next().html(b[aindex]);
+                    }
+                    //alert( "Data Saved: " + msg );
+                }
+            });
+
+
+        });
+
+
+        //减少
+        $(".order-reduce").click(function(){
+
+            var $this = $(this);
+            var bindex=$(this).parent().parent().index();
+            var id = $(this).parent().parent().attr('attr');
+            if(b[bindex]==1){
+                $(this).prev().html(1);
+            }else{
+                b[bindex]--;
+
+                $.ajax({
+                    type: "POST",
+                    url: "{:url('index/edit_shopcar_num')}",
+                    data: "id="+id+"&num="+b[bindex],
+                    success: function(msg){
+                        var data = JSON.parse(msg);
+                        //console.log(data.code);
+                        if( data.code == 400){
+                            $this.prev().html(b[bindex]);
+                        }
+                        //alert( "Data Saved: " + msg );
+                    }
+                });
+
+
+            };
+        });
+
+        //删除
+        $(".remove").click(function(){
+            console.log('count:'+count);
+            var index=$(this).parent().index();
+            var $this = $(this);
+            var id  = $(this).attr('title');
+
+            $.ajax({
+                type: "POST",
+                url: "{:url('index/user_shopcar')}",
+                data: "id="+id,
+                success: function(msg){
+                    var data = JSON.parse(msg);
+                    if( data.code == 400){
+                        $this.parent().remove();
+                        b.splice(index,1);
+                        var anum=parseInt($this.parent().find('div:last').find(".item-num").find('span').html());
+                        console.log('anum:'+anum);
+                        var value=anum*parseInt($this.parent().find('div:last').find(".item-num2").html());
+                        count=count-anum;
+                        console.log('count:'+count);
+                        content=content-value;
+                        len();
+                        hide(length);
+                    }
+                }
+            });
+
+
+        });
+
+        function len(){
+
+            length=$(".container-list li").length;
+            height=100*length+30+'px';
+            $(".container-list").css("height",height);
+            $(".bottom-nav-total-num").html(content);
+            $(".account-text").html('('+count+')');
+            if(content==0){
+                $(".select").attr('src','__STATIC__/user/img/icon7.png');
+                $(".account").css({"background":"#f1f1f1","color":"#999"});
+                $(".bottom-nav-total").css("color","#999");
+                $(".account-text").html('');
+            };
+
+        };
+
+        function setdata(){
+            for(var i=0; i<length;i++){
+                $(".container-list li").eq(i).find('div:last').find(".item-num").find('span').html(a[i]);
+
+            };
+        };
+
+    });
+
+
+    function set_cart()
+    {
+        var arr=[];
+        var parent = $(document).find('ul').children();
+        var node = parent.find("img[class='icon-img select select-one']");
+
+        $.each( $(node), function(i, n){
+            if($(n).attr('src') === '__STATIC__/user/img/icon6.png'){
+                arr[i] = parent.eq(i).attr('attr');
+            }
+        });
+
+        for(var i = 0 ;i<arr.length;i++)
+        {
+            if(arr[i] == "" || typeof(arr[i]) == "undefined")
+            {
+                arr.splice(i,1);
+                i= i-1;
+            }
+        }
+
+
+       // console.log(arr);
+
+        var json={};
+        for(var i=0;i<arr.length;i++)
+        {
+            json[i]=arr[i];
+        }
+
+        console.log(json);
+
+        $.post("{:url('index/test')}",json,
+                function(data){
+                    console.log(data.time);
+                }, "json");
+    }
+
+</script>

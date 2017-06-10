@@ -1,97 +1,175 @@
+
 <!doctype html>
 <html lang="en">
- <head>
-  <meta charset="UTF-8">
-  <title>新增地址</title>
-  <link rel="shortcut icon" href="https://b.yzcdn.cn/v2/image/yz_fc.ico">
-  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
-  <script type="text/javascript" src="__STATIC__/user/lib/jquery.js"></script>
-  <link rel="stylesheet" type="text/css" href="__STATIC__/user/css/style.css" />
-  <style>
-  .header{width:100%;height:30px;background: #fbfbfb;}
-  .header p{line-height: 39px;font-size: 18px;}
-  .container{width:100%;background:#ffffff;margin-top:15px;}
-  .container li{width:100%;border-bottom:1px solid #e5e5e5;font-size:22px;text-align: left;height:55px;}
-  .put{border:none;height:53px;font-size:19px;outline:none;line-height:53px;float: left;background:#ffffff;}
-  .textarea{height:100px;line-height:33px;}
-  .message{margin-left:10px;width:113px;float: left;height:100%;line-height:55px;font-size:15px;}
-  .put2{font-size:14px;color:#ff1300;}
-  .btn{height:35px;line-height: 35px;color:#ffffff;background:#06bf04;text-align: center;margin-left: 10px;margin-top: 10px;border-radius: 5px;}
-  @media screen and (max-width: 330px) {
-    .container li{font-size:18px;}
-    .put{font-size:16px;}
-    .message{width:90px;}
-    .textarea{line-height:40px;}
-  }
-  </style>
- </head>
- <body>
-  <div class="blue">
+<head>
+    <meta charset="UTF-8">
+    <title>新增地址</title>
+    <link rel="shortcut icon" href="https://b.yzcdn.cn/v2/image/yz_fc.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <script type="text/javascript" src="__STATIC__/user/lib/jquery.js"></script>
+    <script src="__STATIC__/product/lib/bootstrap.min.js"></script>
+    <script src="__STATIC__/product/lib/distpicker.data.js"></script>
+    <script src="__STATIC__/product/lib/distpicker.js"></script>
+    <script src="__STATIC__/product/lib/main.js"></script>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/user/css/style.css" />
+    <style>
+        .header{width:100%;height:30px;background: #fbfbfb;}
+        .header p{line-height: 39px;font-size: 18px;}
+        #container{width:100%;background:#ffffff;margin-top:15px;}
+        #container li{width:100%;border-bottom:1px solid #e5e5e5;font-size:17px;text-align: left;height:55px;}
+        .put{border:none;height:53px;font-size:16px;outline:none;line-height:53px;float: left;background:#ffffff;}
+        .textarea{height:100px;line-height:30px;padding-top:10px;}
+        .message{margin-left:10px;width:80px;float: left;height:100%;line-height:55px;font-size: 12px;}
+        .put2{font-size:15px;color:#ff1300;}
+        .btn{height:35px;line-height: 35px;color:#ffffff;background:#06bf04;text-align: center;margin-left: 10px;margin-top: 10px;border-radius: 5px;}
+        .form-group{float: left;margin-left:5px;margin-top:10px;}
+        .form-group select{height:30px;line-height: 30px;outline: none;border-radius:3px;font-size:12px;color:#333;text-align: center;border:1px solid #c2c2c2;}
+        .form-group select option{text-align: center;}
+        #province1{width:90px;}
+        #city1{width:100px;}
+        #district1{width:70px;}
+        @media screen and (max-width: 365px) {
+            #container li{font-size:16px;}
+            .message{width:70px;}
+            #province1{width:70px;}
+            #city1{width:90px;}
+            #district1{width:60px;}
+            #container li{font-size:15px;}
+        }
+    </style>
+</head>
+<body>
+<div class="blue">
     <div class="header">
-      <p>设置新的收货地址</p>
+        <p>设置新的收货地址</p>
     </div>
 
-    <form action="{:url('index/set_address')}" id="post_data" method="post">
-  	<ul class="container">
-  		<li>
-  		    <p class="message">联系人&nbsp:</p>
-  			<input type="text" placeholder="名字" class="put name" onfocus="this.placeholder=''" onblur="this.placeholder='名字' " style="font-size: 12px;" name="phone_call_people"></input>
-  		</li>
-      <li>
-          <p class="message">收货人&nbsp:</p>
-        <input type="text" maxlength="11" placeholder="11位手机号" class="put num" onfocus="this.placeholder=''" onblur="this.placeholder='11位手机号' "  id="put1" style="font-size: 12px;" name="receive_phone_call"></input>
-      </li>
-  		<li>
-  		    <p class="message">选择地区:</p>
-  			<input type="text" placeholder="地区信息" class="put area" onfocus="this.placeholder=''" onblur="this.placeholder='地区信息' " style="font-size: 12px;" name="area"></input>
-  		</li>
-  		<li style="height:110px;">
-  		    <p class="message">纤细地址:</p>
-  			<textarea type="text" placeholder="街道门牌信息" class="put textarea" onfocus="this.placeholder=''" onblur="this.placeholder='街道门牌信息' " style="font-size: 12px;" name="detail_address"></textarea>
-  		</li>
-  	</ul>
-    <div class="btn save" style="font-size: 14px;" onclick="document.getElementById('post_data').submit()">确认提交</div>
-    <div class="btn" style="background:#ffffff;"><a href="{:url('index/index')}" style="font-size: 14px;">返回</a></div>
-  </div>
+    <form action="{:url('index/set_address')}" method="post">
+    <ul id="container">
+        <li>
+            <p class="message">联系人&nbsp:</p>
+            <input type="text" placeholder="名字" value="{$user_info.phone_call_people}" class="put name" onfocus="this.placeholder=''" onblur="this.placeholder='名字' " style="font-size: 12px;" name="phone_call_people">
+        </li>
+        <li>
+            <p class="message">收货人&nbsp:</p>
+            <input type="text" maxlength="11" value="{$user_info.receive_phone_call}" placeholder="11位手机号" class="put num" onfocus="this.placeholder=''" onblur="this.placeholder='11位手机号' "  id="put1" style="font-size: 12px;" name="receive_phone_call">
+        </li>
+        <li>
+            <p class="message">选择地区:</p>
+            <div class="jq22-container">
+                <div class="container">
+                    <form class="form-inline">
+                        <div data-toggle="distpicker">
+                            <div class="form-group">
+                                <label class="sr-only" for="province1"></label>
+                                <select class="form-control" id="province1" name="province">
+                                    <option value="" data-code="">—— 省 ——</option>
 
-  </form>
+                                    <!--<option value="北京市" data-code="110000" >北京市</option>-->
+                                    <!--<option value="天津市" data-code="120000">天津市</option>-->
+                                    <!--<option value="河北省" data-code="130000">河北省</option>-->
+                                    <!--<option value="山西省" data-code="140000">山西省</option>-->
+                                    <!--<option value="内蒙古自治区" data-code="150000">内蒙古自治区</option>-->
+                                    <!--<option value="辽宁省" data-code="210000">辽宁省</option>-->
+                                    <!--<option value="吉林省" data-code="220000">吉林省</option>-->
+                                    <!--<option value="黑龙江省" data-code="230000">黑龙江省</option>-->
+                                    <!--<option value="上海市" data-code="310000">上海市</option>-->
+                                    <!--<option value="江苏省" data-code="320000">江苏省</option>-->
+                                    <!--<option value="浙江省" data-code="330000">浙江省</option>-->
+                                    <!--<option value="安徽省" data-code="340000">安徽省</option>-->
+                                    <!--<option value="福建省" data-code="350000">福建省</option>-->
+                                    <!--<option value="江西省" data-code="360000">江西省</option>-->
+                                    <!--<option value="山东省" data-code="370000">山东省</option>-->
+                                    <!--<option value="河南省" data-code="410000">河南省</option>-->
+                                    <!--<option value="湖北省" data-code="420000">湖北省</option>-->
+                                    <!--<option value="湖南省" data-code="430000">湖南省</option>-->
+                                    <!--<option value="广东省" data-code="440000">广东省</option>-->
+                                    <!--<option value="广西壮族自治区" data-code="450000">广西壮族自治区</option>-->
+                                    <!--<option value="海南省" data-code="460000">海南省</option>-->
+                                    <!--<option value="重庆市" data-code="500000">重庆市</option>-->
+                                    <!--<option value="四川省" data-code="510000">四川省</option>-->
+                                    <!--<option value="贵州省" data-code="520000">贵州省</option>-->
+                                    <!--<option value="云南省" data-code="530000">云南省</option>-->
+                                    <!--<option value="西藏自治区" data-code="540000">西藏自治区</option>-->
+                                    <!--<option value="陕西省" data-code="610000">陕西省</option>-->
+                                    <!--<option value="甘肃省" data-code="620000">甘肃省</option>-->
+                                    <!--<option value="青海省" data-code="630000">青海省</option>-->
+                                    <!--<option value="宁夏回族自治区" data-code="640000">宁夏回族自治区</option>-->
+                                    <!--<option value="新疆维吾尔自治区" data-code="650000">新疆维吾尔自治区</option>-->
+                                    <!--<option value="台湾省" data-code="710000">台湾省</option><-->
+                                    <!--<option value="香港特别行政区" data-code="810000">香港特别行政区</option>-->
+                                    <!--<option value="澳门特别行政区" data-code="820000">澳门特别行政区</option>-->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="city1"></label>
+                                <select class="form-control" id="city1" name="city">
+                                    <option value="" data-code="">—— 市 ——</option>
 
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="district1"></label>
+                                <select class="form-control" id="district1" name="district">
+                                    <option value="" data-code="">—— 区 ——</option>
 
- </body>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </li>
+        <li style="height:110px;">
+            <p class="message">纤细地址:</p>
+            <textarea type="text" placeholder="街道门牌信息" class="put textarea" onfocus="this.placeholder=''" onblur="this.placeholder='街道门牌信息' " style="font-size: 12px;" name="detail_address">{$user_info.detail_address}
+            </textarea>
+
+        </li>
+    </ul>
+    </form>
+
+    <div class="btn save" onclick="$(document).find('form').submit()">确认提交</div>
+    <div class="btn" style="background:#ffffff;"><a href="{:url('index/index')}">返回</a></div>
+
+</div>
+</body>
 </html>
 <script>
-	$(function(){
-    var width=$(window).width()-123+'px';
-    $(".put").css("width",width);
+    $(function(){
+        var width=$(window).width()-123+'px';
+        $(".put").css("width",width);
 
-    var awidth=$(window).width()-20+'px';
-    $(".btn").css("width",awidth);
+        var awidth=$(window).width()-20+'px';
+        $(".btn").css("width",awidth);
 
-		$(".save").click(function(){
-			var name=$(".name").val();
-			var num=$(".num").val();
-			var area=$(".area").val();
-			var textarea=$(".textarea").val();
-			var mail=$(".mail").val();
+        $(".save").click(function(){
+            var name=$(".name").val();
+            var num=$(".num").val();
+            var area=$(".area").val();
+            var textarea=$(".textarea").val();
+            var mail=$(".mail").val();
             checkMobile(num);
-		});
+        });
 
-       function checkMobile(str) {
-         var re = /^1\d{10}$/
-         if (re.test(str)) {
-             clearInterval(timer);
-             code();
-         } else {
-         	 $("#put1").addClass('put2');
-             $("#put1").val("请输入正确手机号码"); 
-         };
-     };
+        function checkMobile(str) {
+            var re = /^1\d{10}$/
+            if (re.test(str)) {
+                clearInterval(timer);
+                code();
+            } else {
+                $("#put1").addClass('put2');
+                $("#put1").val("请输入正确手机号码");
+            };
+        };
 
-       $("#put1").focus(function(){
-        	$("#put1").removeClass('put2');
-        	$("#put1").val("");
+        $("#put1").focus(function(){
+            $("#put1").removeClass('put2');
+            $("#put1").val("");
         });
 
 
-	});
+    });
+
+
 </script>
