@@ -7,7 +7,7 @@
 	class User extends Model
 	{
 
-
+		
 	  	protected $table = 'flower_user';
 	  	protected static $user_id;
 
@@ -15,8 +15,10 @@
 		{
 			parent::init();
 			//if( !self::$user_id) {
-			session('user_id') ? self::$user_id = session('user_id') : self::$user_id=2;
-			//}
+			if( session('user_info.user_id') ){
+				self::$user_id = session('user_info.user_id');
+			}
+
 		}
 
 
@@ -27,15 +29,22 @@
 
 		public  function find_user_info()
 		{
-			$data = $this->where("user_id", self::$user_id)->find()->toArray();
-			//session('user_info',$data);
 
-			$arr = explode('-',$data['area']);
-			$data['province'] = $arr[0];
-			$data['city'] = $arr[1];
-			$data['district'] = $arr[2];
-			session('user_info',$data);
-			return $data;
+			if(self::$user_id){
+				$data = $this->where("user_id", self::$user_id)->find();
+
+				if ($data['area']) {  //
+					$arr = explode('-',$data['area']);
+					$data['province'] = $arr[0];
+					$data['city'] = $arr[1];
+					$data['district'] = $arr[2];
+				}
+
+				session('user_info',$data);
+				return $data;
+			}
+			return false;
+
 		}
 
 
@@ -79,7 +88,6 @@
 				if($val['spec'] ==4 )			$data[$k]['spec'] = '月度12束+1祝福卡';
 
 			}
-
 			return $data;
 		}
 

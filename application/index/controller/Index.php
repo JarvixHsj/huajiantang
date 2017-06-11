@@ -1,56 +1,66 @@
 <?php
-
-	namespace app\Index\controller;
-	use  app\Index\controller\Base;
+	namespace app\index\controller;
+	use \think\Controller;
+	use  app\index\controller\Base;
 	use  \think\tools\Curl;
 	use \think\Loader;
 	use think\Db;
-	use app\Index\model\User;
+	use app\index\model\User;
 
 	class Index extends Base
-	{	
-
+	{
 		private static $model;
 		private static $curl;
 
 		public function _initialize(){
-			//session(null);
+
 			parent::_initialize();
 
 			if( !self::$curl || !self::$model){
 				self::$model = new User();
 				self::$curl = new Curl();
 			}
-
-//			if(! session('user_info.user_id')){
-//				//login
-//				$this->wechat_info();
-//			}
 		}
 
 
 		public function test()
 		{
 			$ids = implode(',',$_POST);
-			$price_num = Db::query("select sum(product_price) as count from flower_user_shopcar where id in({$ids})");
+			$price_num = Db::query("select sum(product_price) as count from flower_user_shopcar 
+						where id in({$ids}) and is_deleted=0 and is_paid=0");
 			dump($price_num);
 			//select sum(product_price) from flow_user_shopcar where id in(1,2,3,4,5,6,7,8)
 		}
 
 
 
-		//微信授权
-		public function wechat_info () {
+		//
+	    public function index()
+		{
+			if(! session('user_info')){
+
+				$this->wechat_info();
+			} else {
+
+				//dump($_SESSION);die;
+				$this->assign('user_info' ,self::$model->find_user_info());
+				return $this->fetch('/user_center');
+			}
+
+	    }
+
+
+		///微信授权
+		public function wechat_info() {
 
 			if ( array_key_exists('code', $_GET)) {
 				$code = $_GET['code'];
-				$data = self::$curl->get("https://api.weixin.qq.com/sns/oauth2/access_token?appid=".config('APP_ID')."&secret=".config('APP_SECRET')."&code=".$code."&grant_type=authorization_code");
+				$data = self::$curl->get("https://api.weixin.qq.com/sns/oauth2/access_token?appid=".config('wechat.APP_ID')."&secret=".config('wechat.APP_SECRET')."&code=".$code."&grant_type=authorization_code");
 
 				$data = json_decode( $data);
 				$data = self::$curl->get("https://api.weixin.qq.com/sns/userinfo?access_token=".$data->access_token."&openid=".$data->openid."&lang=zh_CN");
 				$data = json_decode($data);
 
-				//	dump($data);
 				$arr = array(
 					'user_name' => $data->nickname,
 					'wechat_nickname' => $data->nickname,
@@ -63,46 +73,39 @@
 					'reg_time' => time()
 				);
 
-				if( $insert_id=Db::table('flower_user')->insertGetId($arr) ) {   //
-					if ( session('user_info', Db::name('user')->where("id",$insert_id)->find() ) ) {
-						$this->index();
-					} else {
-						$this->redirect('product/index/index');
+				if( $data = Db::name('user')->where("wechat_openid",$data->openid)->find() ){
+						session('user_info',$data);
+						return $this->fetch('/user_center');
+
+				} else {
+					if( $insert_id=Db::table('flower_user')->insertGetId($arr) ) {   //
+						if ( $data=Db::name('user')->where("user_id",$insert_id)->find() ) {
+							session('user_info', $data);
+							return $this->fetch('/user_center');
+						}
 					}
 				}
 
+
 			} else {
-				$REDIRECT_URI =  ("http://". $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME']) ;
+
+				$REDIRECT_URI = urlencode ("http://". $_SERVER['HTTP_HOST'] . $_SERVER['QUERY_STRING']) .'wechat_info/';
 
 				$state = uniqid().mt_rand().time();
-				$url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=".config('APP_ID')."&redirect_uri=".$REDIRECT_URI."&response_type=code&scope=snsapi_userinfo&state=".$state."#wechat_redirect";
-				//echo $url;die;
-				header("Location:$url");
+				$url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=".config('wechat.APP_ID')."&redirect_uri=".$REDIRECT_URI."&response_type=code&scope=snsapi_userinfo&state=".$state."#wechat_redirect";
+				ob_start();
+				ob_end_flush();
+				header ( "Location: {$url}" );
+				exit();
 			}
 		}
-
-
-
-		//
-	    public function index()
-		{
-			session('user_id','2');
-			//$_SESSION['user_id'] = 2;
-	    	$this->assign('user_info' ,self::$model->find_user_info());
-	    	return $this->fetch('/user_center');
-	    }
-
-
 
 
 
 	    //修改收货地址
 	    public function set_address()
 	    {
-
-
 	    	if($_POST) {
-
 				$_POST['area'] = $_POST['province'] . '-'.$_POST['city']. '-'.$_POST['district'];
 				unset($_POST['province']);
 				unset($_POST['city']);
@@ -236,28 +239,66 @@
 		public function test_pay()
 		{
 
-			Loader::import('wxpay.JsApiPay');
-			$tools = new \JsApiPay();
-			$openId = $tools->GetOpenid();
 
-			//②、统一下单
+			//dump($_SERVER);DIE;
+
+			Loader::import('wx_pay.JsApiPay');
+
+			$tools = new \JsApiPay();
+
+
+			$openId = $tools->GetOpenid();
+			//dump($openId);
+
 			$input = new \WxPayUnifiedOrder();
 			$input->SetBody("test");
 			$input->SetAttach("test");
-
-			$input->SetOut_trade_no( \WxPayConfig::MCHID.date("YmdHis"));
-
-			$input->SetTotal_fee("1");
-			$input->SetTime_start(date("YmdHis"));
-			$input->SetTime_expire(date("YmdHis", time() + 600));
+			$out_trade_no = \WxPayConfig::MCHID. date("YmdHis"). substr( uniqid(),0,3 );
+			$input->SetOut_trade_no( $out_trade_no );
+			//$input->SetTotal_fee( $info['price'] * 100);
+			$input->SetTotal_fee( "1");
+			$input->SetTime_start( date("YmdHis") );
+			$input->SetTime_expire( date("YmdHis", time() + 600) );
 			$input->SetGoods_tag("test");
-			$input->SetNotify_url("http://paysdk.weixin.qq.com/example/notify.php");
+			$input->SetNotify_url('http://'.$_SERVER['HTTP_HOST'].'//index/respond/');
 			$input->SetTrade_type("JSAPI");
 			$input->SetOpenid($openId);
-			$order = \WxPayApi::unifiedOrder($input);
-			echo '<font color="#f00"><b>统一下单支付单信息</b></font><br/>';
-			printf_info($order);
+			$order =  \WxPayApi::unifiedOrder($input);
+
 			$jsApiParameters = $tools->GetJsApiParameters($order);
+			dump($jsApiParameters);
+			$this->assign('jsApiParameters',$jsApiParameters);
+
+			echo '<script type="text/javascript">
+            function jsApiCall()
+            {
+                WeixinJSBridge.invoke(
+                    "getBrandWCPayRequest",
+                    '.$jsApiParameters.',
+            function(res){
+            WeixinJSBridge.log(res.err_msg);
+                alert(res.err_code+res.err_desc+res.err_msg);
+            }
+            );
+            }
+
+            function callpay()
+            {
+                if (typeof WeixinJSBridge == "undefined"){
+                 if( document.addEventListener ){
+                document.addEventListener("WeixinJSBridgeReady", jsApiCall, false);
+            }else if (document.attachEvent){
+                document.attachEvent("WeixinJSBridgeReady", jsApiCall);
+                document.attachEvent("onWeixinJSBridgeReady", jsApiCall);
+            }
+            }else{
+                jsApiCall();
+                }
+            }
+            callpay();
+
+    		</script>';
+
 		}
 
 

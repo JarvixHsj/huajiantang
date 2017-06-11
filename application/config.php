@@ -252,20 +252,6 @@ return [
     ],
 
 
-    // 'tpl_replace_string' => [
-    //     '__STATIC__' => ROOT_PATH . 'public/static',
-    //     '__PRODUCT_JS__' => ROOT_PATH . 'public/static/product/lib',
-    //     '__PRODUCT_CSS__' => ROOT_PATH . 'public/static/product/css',
-    //     '__PRODUCT_IMG__' => ROOT_PATH . 'public/static/product/img',
-    // ],
-
-    // /* 模板相关配置 */
-    // 'TMPL_PARSE_STRING' => array(
-    //     '__STATIC__' => ROOT_PATH . 'public/static',
-    //     '__PRODUCT_JS__' => ROOT_PATH . 'public/static/product/lib',
-    //     '__PRODUCT_CSS__' => ROOT_PATH . 'public/static/product/css',
-    //     '__PRODUCT_IMG__' => ROOT_PATH . 'public/static/product/img',
-    // ),
     /* 模板相关配置 */
     'TMPL_PARSE_STRING' => array(
         '__STATIC__' => ROOT_PATH . 'public/static',
@@ -273,19 +259,10 @@ return [
         '__PRODUCT_CSS__' => ROOT_PATH . 'public/static/product/css',
         '__PRODUCT_IMG__' => ROOT_PATH . 'public/static/product/img',
     ),
-    /* 模板相关配置 */
-    // 'TMPL_PARSE_STRING' => array(
-    //     '__STATIC__' => __ROOT__ . '/Public/static',
-    //     '__ADDONS__' => __ROOT__ . '/Public/' . MODULE_NAME . '/Addons',
-    //     '__IMG__'    => __ROOT__ . '/Public/' . MODULE_NAME . '/images',
-    //     '__CSS__'    => __ROOT__ . '/Public/' . MODULE_NAME . '/css',
-    //     '__JS__'     => __ROOT__ . '/Public/' . MODULE_NAME . '/js',
-    //     '__PUBLIC__'     => __ROOT__ . '/Public',
-    // )
 
     'wechat' => array(
-        'APP_ID'       => '',
-        'APP_SECRET'   => ''
+        'APP_ID'       => 'wx071a65fb8a45af7f',
+        'APP_SECRET'   => 'f461248a7dd0452b35996a1ede07b475'
     ),
     
 ];
